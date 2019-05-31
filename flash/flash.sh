@@ -1,3 +1,4 @@
+#!/bin/bash
 cd ..
 cd build_target
 make
