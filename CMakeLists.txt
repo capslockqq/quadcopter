@@ -139,7 +139,7 @@ message(${BUILD_TYPE})
   add_subdirectory(application_code)
   add_subdirectory(avr_code)
 
-  else()
+  elseif(BUILD_TYPE STREQUAL "PC")
   project(pc-example)
   set(CMAKE_C_COMPILER "gcc")
   set(CMAKE_CXX_COMPILER "g++")
@@ -156,6 +156,13 @@ message(${BUILD_TYPE})
   add_definitions("-c")
   add_subdirectory(application_code)
   add_subdirectory(pc)
+
+  elseif(BUILD_TYPE STREQUAL "UNITTEST")
+  project(unittest)
+  set(CMAKE_C_COMPILER "gcc")
+  set(CMAKE_CXX_COMPILER "g++")
+  add_subdirectory(application_code)
+  add_subdirectory(unittest)
 
 endif()
 
