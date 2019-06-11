@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    stages {
+        stage ('Compile Stage') {
+            steps {
+                sh 'mkdir -p build_pc'
+                sh 'cd build_pc'
+                sh 'cmake -DBUILD_TYPE=PC ..'
+                sh 'make'
+            }
+        }
+    }
+}
