@@ -11,7 +11,14 @@ pipeline {
                 sh 'mkdir -p build_unittest && cd build_unittest && cmake -DBUILD_TYPE=UNITTEST .. && make && cd unittest && ./unittest'
             }
         }
-        stage ('Unit test Stage') {
+        
+        stage ('Compile Target Stage') {
+            steps {
+                sh 'mkdir -p build_target && cd build_target && cmake -DBUILD_TYPE=TARGET .. && make'
+            }
+        }
+        
+        stage ('Program Target Stage') {
             steps {
                 sh 'cd flash && sudo chmod 666 /dev/ttyACM0 && sudo chmod +x output_script && ./output_script'
             }
