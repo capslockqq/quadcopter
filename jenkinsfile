@@ -1,9 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage ('Compile Stage') {
+        stage ('Compile PC Stage') {
             steps {
                 sh 'mkdir -p build_pc && cd build_pc && cmake -DBUILD_TYPE=PC .. && make'
+            }
+        }
+         stage ('Unit test Stage') {
+            steps {
+                sh 'mkdir -p build_unittest && cd build_unittest && cmake -DBUILD_TYPE=UNITTEST .. && make && cd unittest && ./unittest'
             }
         }
     }
