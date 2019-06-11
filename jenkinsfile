@@ -6,9 +6,14 @@ pipeline {
                 sh 'mkdir -p build_pc && cd build_pc && cmake -DBUILD_TYPE=PC .. && make'
             }
         }
-         stage ('Unit test Stage') {
+        stage ('Unit test Stage') {
             steps {
                 sh 'mkdir -p build_unittest && cd build_unittest && cmake -DBUILD_TYPE=UNITTEST .. && make && cd unittest && ./unittest'
+            }
+        }
+        stage ('Unit test Stage') {
+            steps {
+                sh 'cd flash && sudo chmod 666 /dev/ttyACM0 && sudo chmod +x output_script && ./output_script'
             }
         }
     }
