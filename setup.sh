@@ -13,4 +13,3 @@ cd build_target
 cmake -DBUILD_TYPE=TARGET ..
 make
 cd ..
-
