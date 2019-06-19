@@ -9,12 +9,12 @@ int main(void)
 {
   CLed hej;
   hej.DoStuff();
-  DDRC = 0xFF; //Nakes PORTC as Output
+  DDRB = 0xFF; //Nakes PORTC as Output
   while(1) //infinite loop
   {
-    PORTC = 0xFF; //Turns ON All LEDs
+    PORTB = 0xFF; //Turns ON All LEDs
     _delay_ms(1000); //1 second delay
-    PORTC= 0x00; //Turns OFF All LEDs
+    PORTB= 0x00; //Turns OFF All LEDs
     _delay_ms(1000); //1 second delay
     
   }
