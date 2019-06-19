@@ -7,8 +7,7 @@
 #include <CLed.hpp>
 int main(void)
 {
-  CLed hej;
-  hej.DoStuff();
+
   DDRB = 0xFF; //Nakes PORTC as Output
   while(1) //infinite loop
   {
