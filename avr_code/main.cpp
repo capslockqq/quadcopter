@@ -8,7 +8,7 @@ int main(void)
 {
 
   DDRB = 0xFF; //Nakes PORTC as Output
-  while(1) //infinite loop
+/*  while(1) //infinite loop
   {
     _delay_ms(100);
     PORTB = 0xFF; //Turns ON All LEDs
@@ -17,4 +17,5 @@ int main(void)
 
     
   }
+   */
 }
