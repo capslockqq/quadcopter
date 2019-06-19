@@ -30,7 +30,7 @@ message(${BUILD_TYPE})
   ##########################################################################
   # AVR and fuses needs to be set
   ##########################################################################
-  set(AVR_MCU atmega32)
+  set(AVR_MCU atmega328p)
   set(AVR_H_FUSE 0xde)
   set(AVR_L_FUSE 0xff)
 
