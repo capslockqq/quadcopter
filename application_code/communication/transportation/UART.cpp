@@ -13,5 +13,5 @@ void UART::Receive_Data(const char *data) {
 }
 
 bool UART::dummy() {
-    return true;
+    return false;
 }
