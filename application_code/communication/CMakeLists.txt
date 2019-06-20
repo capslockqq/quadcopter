@@ -1,20 +1,22 @@
 #####################################################################
 # simple AVR library
 #####################################################################
-add_subdirectory(communication)
-file(GLOB helloworld_SRC
+add_subdirectory(transportation)
+add_subdirectory(protocols)
+
+file(GLOB communication_src
     "*.hh"
     "*.h"
     "*.cc"
     "*.cpp")
 if(BUILD_TYPE STREQUAL "TARGET")
     add_avr_library(
-    application_code
-    ${helloworld_SRC}
+    application_code_communication
+    ${communication_src}
     )
 else()
     add_library (
-        pc-application_code
-        ${helloworld_SRC}
+        pc-application_code_communication
+        ${communication_src}
     )
 endif()

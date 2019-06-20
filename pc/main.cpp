@@ -1,19 +1,10 @@
-/**
- * \brief simple application to test the C++ toolchain
- *
- * \file main.cc
- * \author Matthias Kleemann
- */
+
 #include <stdio.h>
-#include "../application_code/CLed.hpp"
-#include "../application_code/test.hpp"
-/**
- * \brief main loop
- */
+#include "../application_code/communication/transportation/UART.hpp"
+
 int main(void)
 {
-   hej();
-   CLed t;
-   t.DoStuff();
-   printf("PC - lol\n\r");
+   UART hej;
+   hej.dummy();
+   printf("PC\n\r");
 }
