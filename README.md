@@ -9,6 +9,7 @@ Quadcopter controller code for both hardware and application layer. The MCU used
 * Install GCC, G++, AVR-GCC, LIBC
 
 ### Setup
+* Open a WSL terminal
 * Clone the project
 * ``` cd quadcopter ```
 * ```sudo chmod +x setup.sh```
