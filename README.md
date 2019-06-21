@@ -14,3 +14,8 @@ Quadcopter controller code for both hardware and application layer. The MCU used
 * ```sudo chmod +x setup.sh```
 * ```./setup.sh``` This will create build folders, and build the project (pc code, unittests and target code)
 
+### Flashing the arduino uno
+There has been created a flashing script which will program your arduino with the C++ code. The code that will be flashed is the code found in the folder ```avr_code```. To flash the code you should do the following:
+* ```cd flash```
+* ```./output.sh```
+
