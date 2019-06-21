@@ -2,4 +2,5 @@
 # Quadcopter
 Quadcopter controller code for both hardware and application layer. The MCU used for this particular project is an arduino uno (atmega328p). The project is primarily written in C++.
 
-## Hello
+## How to get the project:
+* Clone the project and cd into the folder.
