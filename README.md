@@ -17,5 +17,5 @@ Quadcopter controller code for both hardware and application layer. The MCU used
 ### Flashing the arduino uno
 There has been created a flashing script which will program your arduino with the C++ code. The code that will be flashed is the code found in the folder ```avr_code```. To flash the code you should do the following:
 * ```cd flash```
-* ```./output_script.sh``` (You might need to change your USB device being used. This can be done by seeing which USB port your arduino is connected to, and replace ```/dec/ACMO0``` with that
+* ```./output_script.sh``` (You might need to change your USB device being used. This can be done by seeing which USB port your arduino is connected to, and replace ```/dev/ACMO0``` with that
 
