@@ -17,7 +17,7 @@ int main(void)
   {
     _delay_ms(100);
     if (lol->dummy()) {
-      PORTB = 0x00; //Turns ON All LEDs
+      PORTB = 0xFF; //Turns ON All LEDs
     } 
 
     
