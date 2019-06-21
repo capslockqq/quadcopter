@@ -27,3 +27,5 @@ If you want to compile and run the application code on your computer you should 
 *  ```cd pc ```
 *  ```./pc_program ```
 
+The same template goes for the simulator and the AVR code
+
