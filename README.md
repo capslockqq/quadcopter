@@ -11,3 +11,6 @@ Quadcopter controller code for both hardware and application layer. The MCU used
 ### Setup
 * Clone the project
 * ``` cd quadcopter ```
+* ```sudo chmod +x setup.sh```
+* ```./setup.sh``` This will create build folders, and build the project (pc code, unittests and target code)
+
