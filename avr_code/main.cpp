@@ -11,15 +11,10 @@
 int main(void)
 {
 
-  UART *lol = new UART();
   DDRB = 0xFF; //Nakes PORTC as Output
   while(1) //infinite loop
   {
     _delay_ms(100);
-    if (lol->dummy()) {
-      PORTB = 0xFF; //Turns ON All LEDs
-    } 
-
-    
+    PORTB = 0xFF; //Turns ON All LEDs
   }
 }
