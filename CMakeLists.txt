@@ -11,6 +11,8 @@
 
 cmake_minimum_required(VERSION 2.8)
 SET(BUILD_TYPE "PC" CACHE STRING "TARGET")
+
+
 if(BUILD_TYPE STREQUAL "TARGET")
 message(${BUILD_TYPE})
 
@@ -142,6 +144,7 @@ message(${BUILD_TYPE})
 
   elseif(BUILD_TYPE STREQUAL "PC")
   project(pc-example)
+  add_definitions(-DBUILD=1 )
   set(CMAKE_C_COMPILER "gcc")
   set(CMAKE_CXX_COMPILER "g++")
   add_subdirectory(application_code)
@@ -149,6 +152,7 @@ message(${BUILD_TYPE})
 
   elseif(BUILD_TYPE STREQUAL "UNITTEST")
   project(unittest)
+  add_definitions(-DBUILD=1 )
   set(CMAKE_C_COMPILER "gcc")
   set(CMAKE_CXX_COMPILER "g++")
   add_subdirectory(application_code)

@@ -15,8 +15,10 @@ int main(void)
    printIO(input1, output2);
    output2.SetValue(true);
    printIO(input1, output2);
-   
 
+   #ifdef BUILD
+	printf("heeej");
+	#endif
    printf("test");
    printf("PC\n\r");
 }
