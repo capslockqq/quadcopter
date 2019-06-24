@@ -8,7 +8,7 @@ pipeline {
         }
         stage ('Run PC Stage') {
             steps {
-                sh 'cd build_pc && cd pc && ./pc-program'
+                sh 'cd build_pc && cd pc && ./pc_program'
             }
         }
         stage ('Unit test Stage') {
