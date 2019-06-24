@@ -4,8 +4,7 @@
 #include "../application_code/components/Input.hpp"
 #include "../application_code/components/Output.hpp"
 #include "../application_code/communication/transportation/UART.hpp"
-template<class T>
-void bind(Input<T> &i, Output<T> &o);
+#include "../application_code/control/Binds.hpp"
 template<class T>
 void printIO(Input<T> i, Output<T> o);
 int main(void)
@@ -14,7 +13,7 @@ int main(void)
    Input<bool> input1;
    Output<bool> output2;
    printIO(input1, output2);
-   bind(input1, output2);
+   Bind_Output_2_Input(input1, output2);
    printIO(input1, output2);
    output2.SetValue(true);
    printIO(input1, output2);
@@ -22,10 +21,6 @@ int main(void)
 
    printf("test");
    printf("PC\n\r");
-}
-template<class T>
-void bind(Input<T> &i, Output<T> &o) {
-   i = o;
 }
 template<class T>
 void printIO(Input<T> i, Output<T> o) {
