@@ -19,17 +19,11 @@ inline Output<T>::Output()
 
 template <class T>
 T Output<T>::GetValue() {
-	#ifdef BUILD
-		exit(0);
-	#endif
 	return *_value;
 }
 
 template <class T>
 T* Output<T>::GetValueAddress() {
-	#ifdef BUILD
-		exit(0);
-	#endif
 	return _value;
 }
 

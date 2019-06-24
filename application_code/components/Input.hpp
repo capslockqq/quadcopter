@@ -27,16 +27,10 @@ inline Input<T>::~Input()
 }
 template <class T>
 inline T Input<T>::GetValue() {
-	#ifdef BUILD
-		exit(0);
-	#endif
 	return *_value;
 }
 
 template <class T>
 T* Input<T>::GetValueAddress() {
-	#ifdef BUILD
-		exit(0);
-	#endif
 	return _value;
 }
