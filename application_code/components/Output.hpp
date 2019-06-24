@@ -10,7 +10,7 @@ public:
 	void SetValue(T value);
 private:
 	T dummyadress;
-	T* _value;
+	T* _value = new T();
 };
 template <class T>
 inline Output<T>::Output()

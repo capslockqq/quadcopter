@@ -123,6 +123,7 @@ message(${BUILD_TYPE})
   # compiler options for all build types
   ##########################################################################
   add_definitions("-DF_CPU=${MCU_SPEED}")
+  add_definitions("-std=c++11")
   add_definitions("-fpack-struct")
   add_definitions("-fshort-enums")
   add_definitions("-mmcu=${AVR_MCU}")

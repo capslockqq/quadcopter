@@ -13,7 +13,7 @@ public:
 		_value = output.GetValueAddress();
 	}    
 private:
-	T* _value;
+	T* _value = new T();
 };
 
 template <class T>

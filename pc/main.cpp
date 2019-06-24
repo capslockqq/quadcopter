@@ -8,11 +8,11 @@ template<class T>
 void printIO(Input<T> i, Output<T> o);
 int main(void)
 {
-   Input<bool> input1;
-   Output<bool> output2;
+   Input<int> input1;
+   Output<int> output2;
    Bind_Output_2_Input(input1, output2);
    printIO(input1, output2);
-   output2.SetValue(true);
+   output2.SetValue(3);
    printIO(input1, output2);
 
    #ifdef BUILD
