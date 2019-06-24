@@ -1,7 +1,6 @@
 #####################################################################
 # simple AVR library
 #####################################################################
-add_subdirectory(transportation)
 add_subdirectory(protocols)
 
 file(GLOB communication_src

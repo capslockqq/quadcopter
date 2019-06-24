@@ -14,8 +14,6 @@ private:
 template <class T>
 inline Output<T>::Output()
 {
-    T tmp = false;
-	_value = &tmp;
 }
 
 template <class T>

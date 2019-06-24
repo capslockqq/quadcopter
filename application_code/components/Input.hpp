@@ -19,8 +19,6 @@ private:
 template <class T>
 inline Input<T>::Input()
 {
-	T tmp = false;
-	_value = &tmp;
 }
 
 template <class T>

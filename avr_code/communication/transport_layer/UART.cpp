@@ -1,6 +1,7 @@
 #include "UART.hpp"
 
-UART::UART() {
+UART::UART()
+{
     printf("UART()");
 }
 
