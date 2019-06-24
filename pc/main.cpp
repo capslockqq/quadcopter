@@ -4,7 +4,7 @@
 #include "../application_code/components/Input.hpp"
 #include "../application_code/components/Output.hpp"
 #include "../application_code/communication/transportation/UART.hpp"
-#include "../application_code/control/Binds.hpp"
+#include "../application_code/components/Binds.hpp"
 template<class T>
 void printIO(Input<T> i, Output<T> o);
 int main(void)
