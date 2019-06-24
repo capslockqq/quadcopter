@@ -10,7 +10,6 @@ int main(void)
 {
    Input<bool> input1;
    Output<bool> output2;
-   printIO(input1, output2);
    Bind_Output_2_Input(input1, output2);
    printIO(input1, output2);
    output2.SetValue(true);
