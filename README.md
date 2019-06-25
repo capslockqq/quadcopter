@@ -2,6 +2,17 @@
 # Quadcopter
 Quadcopter controller code for both hardware and application layer. The MCU used for this particular project is an arduino uno (atmega328p). The project is primarily written in C++.
 
+## The structure of the code:
+There is 5 projects in this github project:
+* application_code
+* avr_code
+* pc
+* Unittest
+* Simulation
+The idea behind this structure, is that all the functional code i.e code that is not hardware specific is located in ```application_code```. The code in ```pc``` is making a test program which uses the simulation and the application code, to test the software in runtime.
+
+```avr_code``` is the main running on the target, which is using the application code.
+
 ## How to setup the project:
 ### Prerequisites
 * Install WSL(https://docs.microsoft.com/en-us/windows/wsl/install-win10)
