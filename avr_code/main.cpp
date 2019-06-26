@@ -22,12 +22,20 @@ void blinkLED(void* parameter)
 		vTaskDelay(250);	// Wait
 	}
 }
+// MAIN PROGRAM
 int main(void)
 {
-  xTaskCreate(blinkLED, "blink", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL);
-  while(1) //infinite loop
-  {
-    _delay_ms(100);
-    PORTB = 0xFF; //Turns ON All LEDs
-  }
+	// CREATE BLINKER TASK
+	xTaskCreate(blinkLED, "blink", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL);
+
+	// START SCHELUDER
+	vTaskStartScheduler();
+ 
+	return 0;
+}
+
+// IDLE TASK
+void vApplicationIdleHook(void)
+{
+	// THIS RUNS WHILE NO OTHER TASK RUNS
 }
