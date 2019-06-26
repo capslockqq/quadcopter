@@ -122,26 +122,32 @@ message(${BUILD_TYPE})
   ##########################################################################
   # compiler options for all build types
   ##########################################################################
+  
   add_definitions("-DF_CPU=${MCU_SPEED}")
-  add_definitions("-std=c++11")
   add_definitions("-fpack-struct")
   add_definitions("-fshort-enums")
   add_definitions("-mmcu=${AVR_MCU}")
   add_definitions("-Wall")
-  add_definitions("-Werror")
   add_definitions("-pedantic")
   add_definitions("-pedantic-errors")
   add_definitions("-funsigned-char")
   add_definitions("-funsigned-bitfields")
   add_definitions("-ffunction-sections")
+  add_definitions("-std=c++11")
   add_definitions("-c")
+  set(CMAKE_C_COMPILER "avr-gcc")
+  set(CMAKE_CXX_COMPILER "avr-g++")
 
   ##########################################################################
   # include search paths
   ##########################################################################
   include_directories(${AVR-CPP-EXAMPLE_SOURCE_DIR}/application_code)
+  include_directories(FreeRTOS_avr/include)
+  include_directories(FreeRTOS_avr/source/portable)
   add_subdirectory(application_code)
   add_subdirectory(avr_code)
+  add_subdirectory(FreeRTOS_avr)
+
 
   elseif(BUILD_TYPE STREQUAL "PC")
   project(pc-example)
