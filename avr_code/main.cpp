@@ -19,7 +19,7 @@ void blinkLED(void* parameter)
 		PORTB &= ~(1 << PB5);	// Turn LED on
 		vTaskDelay(250);	// Wait
 		PORTB |= (1 << PB5);	// Turn LED off
-		vTaskDelay(250);	// Wait
+		vTaskDelay(1000);	// Wait
 	}
 }
 // MAIN PROGRAM
