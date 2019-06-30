@@ -4,8 +4,22 @@
 #include "../application_code/components/Input.hpp"
 #include "../application_code/components/Output.hpp"
 #include "../application_code/components/Binds.hpp"
+#include "../FreeRTOS_Linux/include/FreeRTOS.h"
+#include "../FreeRTOS_Linux/include/task.h"
+
+
 template<class T>
 void printIO(Input<T> i, Output<T> o);
+
+void blinkLED(void* parameter)
+{
+	for (;;)
+	{
+		std::cout << "BlinkTask" << std::endl;
+      vTaskDelay(1000);
+   }
+}
+
 int main(void)
 {
    Input<int> input1;
@@ -18,8 +32,14 @@ int main(void)
    #ifdef BUILD
 	printf("heeej");
 	#endif
-   printf("test");
    printf("PC\n\r");
+   	// CREATE BLINKER TASK
+	xTaskCreate(blinkLED, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
+
+	// START SCHELUDER
+	vTaskStartScheduler();
+
+
 }
 template<class T>
 void printIO(Input<T> i, Output<T> o) {

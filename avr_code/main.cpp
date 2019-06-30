@@ -5,7 +5,6 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <util/delay.h>
-#include "operators.h"
 #include "../FreeRTOS_avr/include/FreeRTOS.h"
 #include "../FreeRTOS_avr/include/task.h"
 
@@ -26,7 +25,7 @@ void blinkLED(void* parameter)
 int main(void)
 {
 	// CREATE BLINKER TASK
-	xTaskCreate(blinkLED, "blink", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL);
+	xTaskCreate(blinkLED, "Print", configMINIMAL_STACK_SIZE, NULL, mainPRINT_TASK_PRIORITY, NULL );
 
 	// START SCHELUDER
 	vTaskStartScheduler();

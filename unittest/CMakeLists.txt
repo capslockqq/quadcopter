@@ -4,4 +4,5 @@ target_link_libraries(unittest
                                 application_code_control
                                 pc-application_code_communication 
                                 pc-application_code_protocols
+                                Free_RTOS_Linux
 )
