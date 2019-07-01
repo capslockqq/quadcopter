@@ -1,6 +1,4 @@
-#ifndef F_CPU
-#define F_CPU 10000000 // 16 MHz clock speed
-#endif
+#define F_CPU 16000000 // 10 MHz clock speed
 
 #include <avr/io.h>
 #include <avr/delay.h>
