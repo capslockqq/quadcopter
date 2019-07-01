@@ -1,12 +1,19 @@
-#define F_CPU 10000000 // 10 MHz clock speed
+#ifndef F_CPU
+#define F_CPU 10000000 // 16 MHz clock speed
+#endif
 
 #include <avr/io.h>
+#include <avr/delay.h>
 #include <stdio.h>
+#include <util/delay.h>
 #include "../FreeRTOS_avr/include/FreeRTOS.h"
 #include "../FreeRTOS_avr/include/task.h"
 
 #include "communication/transport_layer/UART.hpp"
 
+
+#include <avr/io.h> 
+#include <util/delay.h>
 
 void blinkLED(void* parameter)
 {
