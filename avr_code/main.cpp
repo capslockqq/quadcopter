@@ -1,4 +1,4 @@
-#define F_CPU 16000000 // 10 MHz clock speed
+#define F_CPU 16000000 // 16 MHz clock speed
 
 #include <avr/io.h>
 #include <avr/delay.h>
@@ -45,7 +45,7 @@ void vApplicationIdleHook(void)
 
 
 #define BUAD    9600
-#define BRC     ((F_CPU/8/BUAD) - 1)
+#define BRC     ((F_CPU/16/BUAD) - 1)
 #define TX_BUFFER_SIZE  128
  
 #include <util/delay.h>
