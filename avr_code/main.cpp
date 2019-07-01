@@ -11,41 +11,9 @@
 
 #include "communication/transport_layer/UART.hpp"
 
-#define BAUD 9600
-#define MYUBRR F_CPU/16/BAUD-1
 
 #include <avr/io.h> 
 #include <util/delay.h>
-
-void USART_Init( unsigned int ubrr);
-void USART_Transmit( unsigned char data );
-
-
-void USART_Init( unsigned int ubrr)
-{
-	/*Set baud rate */
-	/* UBRR0H contains the 4 most significant bits of the
-	baud rate. UBRR0L contains the 8 least significant
-	bits.*/  
-	UBRR0H = (unsigned char)(ubrr>>8);
-	UBRR0L = (unsigned char)ubrr;
-	
-
-	/*Enable transmitter */
-	UCSR0B = (1<<TXEN0);
-	
-	/* Set frame format: 8data */
-	UCSR0C = (1<<USBS0)|(3<<UCSZ00);
-}
-
-void USART_Transmit( unsigned char data )
-{
-	/* Wait for empty transmit buffer */
-	while ( !( UCSR0A & (1<<UDRE0)) );
-	
-	/* Put data into buffer, sends the data */
-	UDR0 = data;
-}
 
 void blinkLED(void* parameter)
 {
@@ -60,23 +28,8 @@ void blinkLED(void* parameter)
 	}
 }
 // MAIN PROGRAM
-int main(void)
+/*int main(void)
 {
-	USART_Init(MYUBRR);
-	while(1) {
-		USART_Transmit('H');
-		USART_Transmit('E');
-		USART_Transmit('L');
-		USART_Transmit('L');
-		USART_Transmit(' ');
-		USART_Transmit('W');
-		USART_Transmit('O');
-		USART_Transmit('R');
-		USART_Transmit('L');
-		USART_Transmit('D');
-		USART_Transmit('\n');
-		_delay_ms(1000);
-	}
 	// CREATE BLINKER TASK
 	xTaskCreate(blinkLED, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
 
@@ -84,10 +37,80 @@ int main(void)
 	vTaskStartScheduler();
  
 	return 0;
-}
+}*/
 
 // IDLE TASK
 void vApplicationIdleHook(void)
 {
 	// THIS RUNS WHILE NO OTHER TASK RUNS
+}
+
+
+#define BUAD    9600
+#define BRC     ((F_CPU/16/BUAD) - 1)
+#define TX_BUFFER_SIZE  128
+ 
+#include <util/delay.h>
+#include <avr/interrupt.h>
+char serialBuffer[TX_BUFFER_SIZE];
+uint8_t serialReadPos = 0;
+uint8_t serialWritePos = 0;
+ 
+void appendSerial(char c);
+void serialWrite(const char *c);
+ 
+int main(void)
+{   
+    UBRR0H = (BRC >> 8);
+    UBRR0L =  BRC;
+     
+    UCSR0B = (1 << TXEN0)  | (1 << TXCIE0);
+    UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
+     
+    sei();
+         
+    while(1)
+    {
+		serialWrite((const char*)"HELLO\n\r\0");
+		_delay_ms(1000);
+    }
+}
+ 
+void appendSerial(char c)
+{
+    serialBuffer[serialWritePos] = c;
+    serialWritePos++;
+     
+    if(serialWritePos >= TX_BUFFER_SIZE)
+    {
+        serialWritePos = 0;
+    }
+}
+ 
+void serialWrite(const char *c)
+{
+	int i = 0;
+	while(c[i] != '\0') {
+		appendSerial(c[i]);
+		i++;
+	}
+     
+    if(UCSR0A & (1 << UDRE0))
+    {
+        UDR0 = 0;
+    }
+}
+ 
+ISR(USART_TX_vect)
+{
+    if(serialReadPos != serialWritePos)
+    {
+        UDR0 = serialBuffer[serialReadPos];
+        serialReadPos++;
+         
+        if(serialReadPos >= TX_BUFFER_SIZE)
+        {
+            serialReadPos++;
+        }
+    }
 }
