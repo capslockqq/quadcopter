@@ -25,7 +25,7 @@ void blinkLED(void* parameter)
 int main(void)
 {
 	// CREATE BLINKER TASK
-	xTaskCreate(blinkLED, "Print", configMINIMAL_STACK_SIZE, NULL, mainPRINT_TASK_PRIORITY, NULL );
+	xTaskCreate(blinkLED, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
 
 	// START SCHELUDER
 	vTaskStartScheduler();
