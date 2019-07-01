@@ -33,8 +33,8 @@ message(${BUILD_TYPE})
   # AVR and fuses needs to be set
   ##########################################################################
   set(AVR_MCU atmega328p)
-  set(AVR_H_FUSE 0xde)
-  set(AVR_L_FUSE 0xff)
+  set(AVR_H_FUSE 0xd9)
+  set(AVR_L_FUSE 0x62)
 
   ### END TOOLCHAIN SETUP AREA #############################################
 
