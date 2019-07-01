@@ -75,6 +75,8 @@ int main(void)
  
 void appendSerial(char c)
 {
+    while ( !( UCSR0A & (1<<UDRE0)));
+    /* Put data into buffer, sends the data */
     UDR0 = c;
 }
  
@@ -91,4 +93,3 @@ void serialWrite(const char *c)
         UDR0 = 0;
     }
 }
- 
