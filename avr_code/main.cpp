@@ -59,18 +59,16 @@ void serialWrite(const char *c);
  
 int main(void)
 {   
-    UBRR0H =0x00;//(unsigned char)  ( uValue>> 8);  // 0x00 
-    UBRR0L =0x0C;//(unsigned char) uValue;  // 0x0C  
-    // enabling TX & RX 
-    UCSR0B = (1<<RXEN0)|(1<<TXEN0);
-    UCSR0A = (1<<UDRE0)|(1<<U2X0);
-    UCSR0C =  (1 << UCSZ01) | (1 << UCSZ00);    // Set frame: 8data, 1 stop
+    UBRR0H = (BRC >> 8);
+    UBRR0L =  BRC;
+    UCSR0B = (1 << TXEN0)  | (1 << TXCIE0);
+    UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
      
     sei();
          
     while(1)
     {
-		serialWrite((const char*)"HELLO\n\r\0");
+		appendSerial('1');
 		_delay_ms(1000);
     }
 }
@@ -89,5 +87,4 @@ void serialWrite(const char *c)
 		appendSerial(c[i]);
 		i++;
 	}
-     UDR0 = 0;
 }
