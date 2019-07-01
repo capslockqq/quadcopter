@@ -135,10 +135,10 @@ message(${BUILD_TYPE})
   add_definitions("-ffunction-sections")
   add_definitions("-std=c++11")
   add_definitions("-c")
+  add_definitions("-Os")
   set(CMAKE_C_COMPILER "avr-gcc")
   set(CMAKE_CXX_COMPILER "avr-g++")
-  set(CMAKE_C_FLAGS "-Os")
-  set(CMAKE_CXX_FLAGS"-Os")
+
   ##########################################################################
   # include search paths
   ##########################################################################
