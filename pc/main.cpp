@@ -13,11 +13,8 @@ void printIO(Input<T> i, Output<T> o);
 
 void blinkLED(void* parameter)
 {
-	for (;;)
-	{
-		std::cout << "BlinkTask" << std::endl;
-      vTaskDelay(1000);
-   }
+   std::cout << "BlinkTask" << std::endl;
+   vTaskDelay(1000);
 }
 
 int main(void)
