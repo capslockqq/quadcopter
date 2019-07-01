@@ -3,6 +3,7 @@
 #endif
 
 #include <avr/io.h>
+#include <avr/delay.h>
 #include <stdio.h>
 #include <util/delay.h>
 #include "../FreeRTOS_avr/include/FreeRTOS.h"
@@ -55,6 +56,14 @@ void blinkLED(void* parameter)
 		vTaskDelay(1000);	// Wait
 		PORTB |= (1 << PB5);	// Turn LED off
 		vTaskDelay(1000);	// Wait
+
+	}
+}
+// MAIN PROGRAM
+int main(void)
+{
+	USART_Init(MYUBRR);
+	while(1) {
 		USART_Transmit('H');
 		USART_Transmit('E');
 		USART_Transmit('L');
@@ -66,12 +75,8 @@ void blinkLED(void* parameter)
 		USART_Transmit('L');
 		USART_Transmit('D');
 		USART_Transmit('\n');
+		_delay_ms(1000);
 	}
-}
-// MAIN PROGRAM
-int main(void)
-{
-	USART_Init(MYUBRR);
 	// CREATE BLINKER TASK
 	xTaskCreate(blinkLED, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
 
