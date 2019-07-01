@@ -1,17 +1,12 @@
-#define F_CPU 16000000 // 16 MHz clock speed
 
 #include <avr/io.h>
-#include <avr/delay.h>
 #include <stdio.h>
-#include <util/delay.h>
 #include "../FreeRTOS_avr/include/FreeRTOS.h"
 #include "../FreeRTOS_avr/include/task.h"
 
 #include "communication/transport_layer/UART.hpp"
 
 
-#include <avr/io.h> 
-#include <util/delay.h>
 
 void blinkLED(void* parameter)
 {
@@ -45,7 +40,7 @@ void vApplicationIdleHook(void)
 
 
 #define BUAD    9600
-#define BRC     ((F_CPU/16/BUAD) - 1)
+#define BRC     ((F_CPU/8/BUAD) - 1)
 #define TX_BUFFER_SIZE  128
  
 #include <util/delay.h>
