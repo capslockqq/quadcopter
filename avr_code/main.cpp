@@ -9,27 +9,41 @@
 #include "../FreeRTOS_avr/include/task.h"
 
 #include "communication/transport_layer/UART.hpp"
+
 #define BAUD 9600
 #define MYUBRR F_CPU/16/BAUD-1
 
-void USART_init(unsigned int ubrr) {
-    UBRR0H = (unsigned char)(ubrr >> 8);
-    UBRR0L = (unsigned char)ubrr;
-    UCSR0B = 1 << RXEN0 | 1 << TXEN0;
-    UCSR0C = 0 << USBS0 | 3 << UCSZ00;
+#include <avr/io.h> 
+#include <util/delay.h>
+
+void USART_Init( unsigned int ubrr);
+void USART_Transmit( unsigned char data );
+
+
+void USART_Init( unsigned int ubrr)
+{
+	/*Set baud rate */
+	/* UBRR0H contains the 4 most significant bits of the
+	baud rate. UBRR0L contains the 8 least significant
+	bits.*/  
+	UBRR0H = (unsigned char)(ubrr>>8);
+	UBRR0L = (unsigned char)ubrr;
+	
+
+	/*Enable transmitter */
+	UCSR0B = (1<<TXEN0);
+	
+	/* Set frame format: 8data */
+	UCSR0C = (1<<USBS0)|(3<<UCSZ00);
 }
 
-void USART_transmit( unsigned char data ) {
-    while(!(UCSR0A & (1 << UDRE0)));
-    UDR0 = data;
-}
-
-void USART_transmit_string(const char *data) {
-    unsigned char c;
-    while(( c = *data++ )) {
-        USART_transmit(c);
-        _delay_ms(10);
-    }
+void USART_Transmit( unsigned char data )
+{
+	/* Wait for empty transmit buffer */
+	while ( !( UCSR0A & (1<<UDRE0)) );
+	
+	/* Put data into buffer, sends the data */
+	UDR0 = data;
 }
 
 void blinkLED(void* parameter)
@@ -41,13 +55,23 @@ void blinkLED(void* parameter)
 		vTaskDelay(1000);	// Wait
 		PORTB |= (1 << PB5);	// Turn LED off
 		vTaskDelay(1000);	// Wait
-		USART_transmit_string((const char *)"Hello world");
+		USART_Transmit('H');
+		USART_Transmit('E');
+		USART_Transmit('L');
+		USART_Transmit('L');
+		USART_Transmit(' ');
+		USART_Transmit('W');
+		USART_Transmit('O');
+		USART_Transmit('R');
+		USART_Transmit('L');
+		USART_Transmit('D');
+		USART_Transmit('\n');
 	}
 }
 // MAIN PROGRAM
 int main(void)
 {
-	USART_init(MYUBRR);
+	USART_Init(MYUBRR);
 	// CREATE BLINKER TASK
 	xTaskCreate(blinkLED, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
 
