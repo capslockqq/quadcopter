@@ -87,9 +87,5 @@ void serialWrite(const char *c)
 		appendSerial(c[i]);
 		i++;
 	}
-     
-    if(UCSR0A & (1 << UDRE0))
-    {
-        UDR0 = 0;
-    }
+     UDR0 = 0;
 }
