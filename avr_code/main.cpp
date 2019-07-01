@@ -47,6 +47,7 @@ void blinkLED(void* parameter)
 // MAIN PROGRAM
 int main(void)
 {
+	USART_init(MYUBRR);
 	// CREATE BLINKER TASK
 	xTaskCreate(blinkLED, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
 
