@@ -15,6 +15,7 @@ void blinkLED(void* parameter)
 {
    std::cout << "BlinkTask" << std::endl;
    vTaskDelay(1000);
+   return NULL;
 }
 
 int main(void)
@@ -35,6 +36,7 @@ int main(void)
 
 	// START SCHELUDER
 	vTaskStartScheduler();
+	return 0;
 
 
 }
