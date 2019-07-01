@@ -75,13 +75,7 @@ int main(void)
  
 void appendSerial(char c)
 {
-    serialBuffer[serialWritePos] = c;
-    serialWritePos++;
-     
-    if(serialWritePos >= TX_BUFFER_SIZE)
-    {
-        serialWritePos = 0;
-    }
+    UDR0 = c;
 }
  
 void serialWrite(const char *c)
@@ -98,16 +92,3 @@ void serialWrite(const char *c)
     }
 }
  
-ISR(USART_TX_vect)
-{
-    if(serialReadPos != serialWritePos)
-    {
-        UDR0 = serialBuffer[serialReadPos];
-        serialReadPos++;
-         
-        if(serialReadPos >= TX_BUFFER_SIZE)
-        {
-            serialReadPos++;
-        }
-    }
-}
