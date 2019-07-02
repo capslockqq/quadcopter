@@ -20,7 +20,7 @@ void ControlTask(void *param) {
           return NULL;
       }
       #endif
-    uart->Send_Data("LOOOOL");
+    uart->Send_Data("LOOOOL\0");
     vTaskDelay(1000);
 
    }
