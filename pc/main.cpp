@@ -6,14 +6,18 @@
 #include "../application_code/components/Binds.hpp"
 #include "../FreeRTOS_Linux/include/FreeRTOS.h"
 #include "../FreeRTOS_Linux/include/task.h"
-
+#include "../FreeRTOS_tasks/tasks.hpp"
 
 template<class T>
 void printIO(Input<T> i, Output<T> o);
 
 void *blinkLED(void* parameter)
 {
-   std::cout << "BlinkTask" << std::endl;
+   while(1) {
+      std::cout << "BlinkTask" << std::endl;
+      vTaskDelay(1000);
+   }
+   
    vTaskEndScheduler();
    return NULL;
 }
@@ -32,7 +36,7 @@ int main(void)
 	#endif
    printf("PC\n\r");
    	// CREATE BLINKER TASK
-	xTaskCreate(&blinkLED, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
+	xTaskCreate(&Test1, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
 
 	// START SCHELUDER
 	vTaskStartScheduler();
