@@ -23,10 +23,10 @@ void ControlTask(void *param) {
       #ifdef TARGET
       while ( !( UCSR0A & (1<<UDRE0)));
     /* Put data into buffer, sends the data */
-    UDR0 = 'c';
+    UDR0 = c;
       #endif
     //uart->Send_Data("LOOOOL\0");
-    vTaskDelay(1000);
+    vTaskDelay(100000);
 
    }
 }
