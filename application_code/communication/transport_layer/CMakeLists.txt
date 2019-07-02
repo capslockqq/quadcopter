@@ -7,7 +7,7 @@ file(GLOB communication_src
     "*.cc"
     "*.cpp"
     )
-if(BUILD_TYPE STREQUAL "PC")
+if(BUILD_TYPE STREQUAL "PC" OR BUILD_TYPE STREQUAL "UNITTEST")
     add_library (
         pc-application_code_transport_layer
         ${communication_src}
