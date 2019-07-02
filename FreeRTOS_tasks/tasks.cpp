@@ -21,7 +21,7 @@ void ControlTask(void *param) {
       }
       #endif
     uart->Send_Data("LOOOOL");
-    vTaskDelay(SLEEP_TIME_MS);
+    vTaskDelay(1000);
 
    }
 }
