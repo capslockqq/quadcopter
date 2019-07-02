@@ -5,13 +5,13 @@ void *Test1(void *param) {
       
       #ifdef PC
       counter++;
-      std::cout << "Test1" << std::endl;
+      std::cout << SLEEP_TIME_MS << std::endl;
       if (counter >= 4) {
           vTaskEndScheduler();
           return NULL;
       }
       #endif
-    vTaskDelay(1000);
+    vTaskDelay(SLEEP_TIME_MS);
 
    }
 }

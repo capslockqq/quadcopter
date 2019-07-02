@@ -11,6 +11,8 @@
 #include "../FreeRTOS_avr/include/task.h"
 #endif
 
+#define SAMPLE_RATE_HZ 5
+#define SLEEP_TIME_MS (1000/SAMPLE_RATE_HZ)
 
 
 void *Test1(void *param);
