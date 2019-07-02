@@ -28,7 +28,7 @@ void InitUART() {
 int main(void)
 {
 	InitUART();
-	#ifdef TARGET
+	#ifdef dd
 	DDRB = 0xFF;
 	PORTB = 0xFF;
 	#endif
