@@ -1,15 +1,17 @@
     
 #pragma once
-
+#include "Input.hpp"
 template <class T>
-class Output {
+class Output 
+{
 public:
 	Output();
+	~Output();
 	T GetValue();
 	T* GetValueAddress();
 	void SetValue(T value);
+
 private:
-	T dummyadress;
 	T* _value = new T();
 };
 template <class T>
@@ -18,7 +20,11 @@ inline Output<T>::Output()
 }
 
 template <class T>
-T Output<T>::GetValue() {
+inline Output<T>::~Output()
+{
+}
+template <class T>
+inline T Output<T>::GetValue() {
 	return *_value;
 }
 

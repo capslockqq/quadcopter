@@ -5,7 +5,7 @@
 #include "../application_code/components/Output.hpp"
 #include "../application_code/components/Binds.hpp"
 #include "../FreeRTOS_tasks/tasks.hpp"
-
+#include "../application_code/communication/transport_layer/UART_fake.hpp"
 template<class T>
 void printIO(Input<T> i, Output<T> o);
 
@@ -23,7 +23,15 @@ void *blinkLED(void* parameter)
 int main(void)
 {
    //Creating Tasks
-	SetUp_Tasks();
+   UART_fake lol;
+   lol.Send_Data("Sending UART DATA \n\r");
+   Output<const char *> output;
+   output.SetValue("Hej");
+   Bind_Input_2_Output(lol.ip_data, output);
+   std::cout << lol.ip_data.GetValue() << std::endl;
+   output.SetValue("DILLER SVANS");
+   std::cout << lol.ip_data.GetValue() << std::endl;
+   SetUp_Tasks();
 	return 0;
 
 

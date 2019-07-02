@@ -8,6 +8,7 @@ target_link_libraries(  pc_program
                         application_code_control
                         pc-application_code_communication 
                         pc-application_code_protocols
+                        pc-application_code_transport_layer
                         Free_RTOS_Linux
                         pc-Free_RTOS_Tasks
 

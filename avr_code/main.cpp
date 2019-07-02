@@ -4,16 +4,15 @@
 
 #include <avr/io.h>
 #include <stdio.h>
-
+#include "../FreeRTOS_avr/include/FreeRTOS.h"
+#include "../FreeRTOS_avr/include/task.h"
 #include "communication/transport_layer/UART.hpp"
 #include "../FreeRTOS_tasks/tasks.hpp"
+#include "operators.h"
+#include "../application_code/components/Binds.hpp"
 #define BUAD    9600
 #define BRC     ((F_CPU/8/BUAD) - 1)
-#define TX_BUFFER_SIZE  128
  
-char serialBuffer[TX_BUFFER_SIZE];
-uint8_t serialReadPos = 0;
-uint8_t serialWritePos = 0;
  
 void appendSerial(char c);
 void serialWrite(const char *c);
@@ -28,12 +27,11 @@ void InitUART() {
 int main(void)
 {
 	InitUART();
-	#ifdef dd
-	DDRB = 0xFF;
-	PORTB = 0xFF;
-	#endif
+	SetUp_Tasks();
 	return 0;
 }
+
+
 void appendSerial(char c)
 {
     while ( !( UCSR0A & (1<<UDRE0)));

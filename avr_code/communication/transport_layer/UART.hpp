@@ -1,10 +1,14 @@
-#include "I_Serial_Communication.hpp" 
+#pragma once
+#include "../../operators.h"
+#include "../../../application_code/communication/transport_layer/I_Serial_Communication.hpp" 
 #include "../../../application_code/components/Input.hpp"
-#include <stdio.h>
+#include <avr/io.h>
 class UART : public I_Serial_Communication<const char *> {
 public:
     UART();
     ~UART(){};
-    void Send_Data(const char *);
-    void Receive_Data(const char *);
+    void Send_Data(const char * data);
+    void Receive_Data(const char * data);
+    
+    
 };
