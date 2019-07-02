@@ -1,0 +1,17 @@
+#####################################################################
+# simple AVR library
+#####################################################################
+file(GLOB FreeRTOS_Tasks_src
+    "*.cpp"
+)
+if(BUILD_TYPE STREQUAL "TARGET")
+    add_avr_library(
+    Free_RTOS_Tasks
+    ${FreeRTOS_Tasks_src}
+    )
+else()
+    add_library (
+        pc-Free_RTOS_Tasks
+        ${FreeRTOS_Tasks_src}
+    )
+endif()

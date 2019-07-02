@@ -137,6 +137,7 @@ message(${BUILD_TYPE})
   add_definitions("-Os")
   set(CMAKE_C_COMPILER "avr-gcc")
   set(CMAKE_CXX_COMPILER "avr-g++")
+  add_definitions(-DTARGET=1)
 
   ##########################################################################
   # include search paths
@@ -147,6 +148,8 @@ message(${BUILD_TYPE})
   add_subdirectory(application_code)
   add_subdirectory(avr_code)
   add_subdirectory(FreeRTOS_avr)
+  add_subdirectory(FreeRTOS_tasks)
+
 
 
   elseif(BUILD_TYPE STREQUAL "PC")
@@ -156,15 +159,17 @@ message(${BUILD_TYPE})
   add_definitions("-fpermissive")
   set(CMAKE_C_COMPILER "gcc")
   set(CMAKE_CXX_COMPILER "g++")
+  add_definitions(-DPC=1)
   include_directories(FreeRTOS_Linux/include)
   include_directories(FreeRTOS_Linux/source/portable)
   add_subdirectory(application_code)
   add_subdirectory(pc)
   add_subdirectory(FreeRTOS_Linux)
+  add_subdirectory(FreeRTOS_tasks)
 
   elseif(BUILD_TYPE STREQUAL "UNITTEST")
   project(unittest)
-  add_definitions(-DBUILD=1 )
+  add_definitions(-DPC=1)
   set(CMAKE_C_COMPILER "gcc")
   set(CMAKE_CXX_COMPILER "g++")
   add_definitions("-std=c++11")
@@ -174,6 +179,8 @@ message(${BUILD_TYPE})
   add_subdirectory(application_code)
   add_subdirectory(unittest)
   add_subdirectory(FreeRTOS_Linux)
+  add_subdirectory(FreeRTOS_tasks)
+
 
 endif()
 

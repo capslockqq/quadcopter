@@ -17,4 +17,5 @@ target_link_libraries(
    application_code_protocols-${AVR_MCU}
    avr_transport_layer-${AVR_MCU}
    Free_RTOS-${AVR_MCU}
+   Free_RTOS_Tasks-${AVR_MCU}
    )
