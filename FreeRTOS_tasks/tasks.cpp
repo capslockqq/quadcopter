@@ -21,13 +21,9 @@ void ControlTask(void *param) {
       }
       #endif
 
-    //uart->Send_Data("LOOOOL\0");
-    vTaskDelay(2000);
-          #ifdef TARGET
-      while ( !( UCSR0A & (1<<UDRE0)));
-    /* Put data into buffer, sends the data */
-    UDR0 = 'c';
-      #endif
+    
+    vTaskDelay(1000);
+    uart->Send_Data("LOOOOL\0");
 
    }
 }
