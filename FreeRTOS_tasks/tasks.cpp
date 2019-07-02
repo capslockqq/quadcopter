@@ -1,12 +1,14 @@
 #include "tasks.hpp"
-int counter = 0;
-void *Test1(void *param) {
+int ticks = 0;
+
+void ControlTask(void *param) {
+
     while(1) {
       
       #ifdef PC
-      counter++;
+      ticks++;
       std::cout << SLEEP_TIME_MS << std::endl;
-      if (counter >= 4) {
+      if (ticks >= SIMULATION_TIME_MS/SLEEP_TIME_MS) {
           vTaskEndScheduler();
           return NULL;
       }
@@ -14,4 +16,12 @@ void *Test1(void *param) {
     vTaskDelay(SLEEP_TIME_MS);
 
    }
+}
+
+void SetUp_Tasks() {
+	xTaskCreate(ControlTask, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
+
+	// START SCHELUDER
+	vTaskStartScheduler();
+  vTaskEndScheduler();
 }

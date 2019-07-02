@@ -3,10 +3,10 @@
 #include "../FreeRTOS_Linux/include/task.h"
 #include <stdio.h>
 #include <iostream>
-#define DEBUG (std::cout << "HEEEEEEJ" << std::endl;)
-
+#define SIMULATION_TIME_MS 1000
 #endif
 #ifdef TARGET
+#include <avr/io.h>
 #include "../FreeRTOS_avr/include/FreeRTOS.h"
 #include "../FreeRTOS_avr/include/task.h"
 #endif
@@ -15,7 +15,5 @@
 #define SLEEP_TIME_MS (1000/SAMPLE_RATE_HZ)
 
 
-void *Test1(void *param);
-void *Test2(void *param);
-void *Test3(void *param);
-void *Test4(void *param);
+void ControlTask(void *param);
+void SetUp_Tasks();

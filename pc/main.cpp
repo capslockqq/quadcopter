@@ -4,8 +4,6 @@
 #include "../application_code/components/Input.hpp"
 #include "../application_code/components/Output.hpp"
 #include "../application_code/components/Binds.hpp"
-#include "../FreeRTOS_Linux/include/FreeRTOS.h"
-#include "../FreeRTOS_Linux/include/task.h"
 #include "../FreeRTOS_tasks/tasks.hpp"
 
 template<class T>
@@ -24,24 +22,8 @@ void *blinkLED(void* parameter)
 
 int main(void)
 {
-   Input<int> input1;
-   Output<int> output2;
-   Bind_Output_2_Input(input1, output2);
-   printIO(input1, output2);
-   output2.SetValue(3);
-   printIO(input1, output2);
-
-   #ifdef BUILD
-	printf("heeej");
-	#endif
-   printf("PC\n\r");
-   	// CREATE BLINKER TASK
-	xTaskCreate(&Test1, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
-
-	// START SCHELUDER
-	vTaskStartScheduler();
-   std::cout << "After" << std::endl;
-   vTaskEndScheduler();
+   //Creating Tasks
+	SetUp_Tasks();
 	return 0;
 
 
