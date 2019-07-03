@@ -132,10 +132,11 @@ message(${BUILD_TYPE})
   add_definitions("-funsigned-char")
   add_definitions("-funsigned-bitfields")
   add_definitions("-ffunction-sections")
-  add_definitions("-std=c++11")
   add_definitions("-Os")
   set(CMAKE_C_COMPILER "avr-gcc")
   set(CMAKE_CXX_COMPILER "avr-g++")
+  add_definitions("-std=c++11")
+
   add_definitions(-DTARGET=1)
 
   ##########################################################################

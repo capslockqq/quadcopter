@@ -1,5 +1,4 @@
 #include "tasks.hpp"
-
 #ifdef TARGET
 I_Serial_Communication<const char *> *uart = new UART();
 #endif
@@ -22,14 +21,14 @@ void ControlTask(void *param) {
       #endif
 
     
-    vTaskDelay(1000);
+    vTaskDelay(SLEEP_TIME_MS);
     uart->Send_Data("LOOOOL\0");
 
    }
 }
 
 void SetUp_Tasks() {
-
+  
 	xTaskCreate(ControlTask, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL );
 
 	// START SCHELUDER

@@ -7,8 +7,9 @@
 #include "../FreeRTOS_avr/include/FreeRTOS.h"
 #include "../FreeRTOS_avr/include/task.h"
 #include "communication/transport_layer/UART.hpp"
-#include "../FreeRTOS_tasks/tasks.hpp"
 #include "operators.h"
+
+#include "../FreeRTOS_tasks/tasks.hpp"
 #include "../application_code/components/Binds.hpp"
 #define BUAD    9600
 #define BRC     ((F_CPU/8/BUAD) - 1)
