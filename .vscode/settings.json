@@ -1,8 +1,7 @@
 {
-    "C_Cpp.errorSquiggles": "Disabled",
+    "C_Cpp.errorSquiggles": "Enabled",
     "C_Cpp.dimInactiveRegions": false,
-    "files.associations": {
-        "task.h": "c",
-        "croutine.h": "c"
-    }
+
+    "C_Cpp.intelliSenseEngine":"Default",
+
 }

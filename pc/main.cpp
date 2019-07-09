@@ -8,19 +8,9 @@
 #include "../FreeRTOS_tasks/tasks.hpp"
 #include "../application_code/communication/transport_layer/UART_fake.hpp"
 
-template<class T>
+template <class T>
 void printIO(Input<T> i, Output<T> o);
 
-void *blinkLED(void* parameter)
-{
-   while(1) {
-      std::cout << "BlinkTask" << std::endl;
-      vTaskDelay(1000);
-   }
-   
-   vTaskEndScheduler();
-   return NULL;
-}
 
 int main(void)
 {
@@ -34,14 +24,11 @@ int main(void)
    output.SetValue("DILLER SVANS");
    std::cout << lol.ip_data.GetValue() << std::endl;
    SetUp_Tasks();
-	return 0;
-
-
+   return 0;
 }
-template<class T>
-void printIO(Input<T> i, Output<T> o) {
+template <class T>
+void printIO(Input<T> i, Output<T> o)
+{
    std::cout << "Output: " << o.GetValue() << std::endl;
    std::cout << "Input: " << i.GetValue() << std::endl;
 }
-
-

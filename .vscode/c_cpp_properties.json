@@ -3,13 +3,17 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/usr/include/**",
+                "${workspaceFolder}/FreeRTOS_Linux/source/portable"
             ],
-            "defines": [],
+            "defines": [
+                "PC=1"
+            ],
             "cStandard": "c11",
             "cppStandard": "c++11",
             "intelliSenseMode": "gcc-x64",
-            "compilerPath": "/usr/bin/avr-gcc"
+            "compilerPath": "/usr/bin/gcc"
         }
     ],
     "version": 4
