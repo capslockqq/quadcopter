@@ -5,7 +5,7 @@
 #include <avr/io.h>
 class UART : public I_Serial_Communication<const char *> {
 public:
-    UART();
+    UART(Component *parent, const char* name, const char *id);
     ~UART(){};
     void Send_Data(const char * data);
     void Receive_Data(const char * data);

@@ -1,11 +1,12 @@
 
 #pragma once
 #include "Output.hpp"
+#include "Component.hpp"
 template <class T>
-class Input
+class Input : public Component
 {
 public:
-	Input();
+	Input(Component *parent, const char *name, const char *id);
 	~Input();
 	T GetValue();
 	T* GetValueAddress();
@@ -17,7 +18,8 @@ private:
 	T* _value = new T();
 };
 template <class T>
-inline Input<T>::Input()
+inline Input<T>::Input(Component *parent, const char *name, const char *id) :
+Component(parent, name, id)
 {
 }
 

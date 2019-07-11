@@ -1,6 +1,8 @@
 #include "UART_fake.hpp"
 #include <iostream>
-UART_fake::UART_fake() {
+UART_fake::UART_fake(Component *parent, const char *name, const char *id) :
+I_Serial_Communication(this , name, id)
+{
 
 }
 

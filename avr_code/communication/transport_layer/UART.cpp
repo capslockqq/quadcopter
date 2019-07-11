@@ -1,6 +1,7 @@
 #include "UART.hpp"
 
-UART::UART()
+UART::UART(Component *parent, const char* name, const char *id) :
+I_Serial_Communication(parent, name, id)
 {
 }
 

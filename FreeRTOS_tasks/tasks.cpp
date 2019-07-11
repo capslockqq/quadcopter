@@ -1,11 +1,13 @@
 #include "tasks.hpp"
+Component root;
 #ifdef TARGET
-I_Serial_Communication<const char *> *uart = new UART();
+I_Serial_Communication<const char *> *uart = new UART(&root, "UART", "01");
 #endif
 #ifdef PC
 #include <chrono>
 #include <ctime>
-I_Serial_Communication<const char *> *uart = new UART_fake();
+#include "../application_code/components/Component.hpp"
+I_Serial_Communication<const char *> *uart = new UART_fake(&root, "Fake UART", "01");
 
 void SimulationTask(void *param)
 {
