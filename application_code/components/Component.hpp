@@ -11,6 +11,8 @@ public:
 
     }
     virtual ~Component(){};
+
+
     Component *GetParent() {
         return _parent;
     }

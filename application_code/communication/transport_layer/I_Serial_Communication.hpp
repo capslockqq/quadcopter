@@ -9,11 +9,13 @@ template<class T>
 class I_Serial_Communication : public Component{
 public:
     I_Serial_Communication(Component *parent, const char *name, const char *id);
-    virtual void Send_Data(T data)      = 0;
-    virtual void Receive_Data(T data)   = 0;
-
+    virtual void Update(const char *)   = 0;
     Input<T> ip_data;
     Output<T> op_data;
+
+private:
+    virtual void Send_Data()      = 0;
+    virtual void Receive_Data()   = 0;
 };
 template<class T>
 I_Serial_Communication<T>::I_Serial_Communication(Component *parent, const char *name, const char *id) :

@@ -2,6 +2,11 @@
 #pragma once
 #include "Input.hpp"
 #include "Component.hpp"
+#ifdef PC
+#include <iostream>
+#include <fstream>
+using namespace std;
+#endif
 template <class T>
 class Output : public Component
 {
@@ -40,5 +45,11 @@ void Output<T>::SetValue(T value) {
 	if (!_value) {
 		return;
 	}
+	#ifdef PC
+	ofstream myfile;
+  	myfile.open ("example.txt", std::ios_base::app);
+  	myfile << "Writing this to a file.\n";
+  	myfile.close();
+	#endif
 	*_value = value;
 }

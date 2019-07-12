@@ -37,12 +37,10 @@ void ControlSenderTask(void *param)
 
 void ControlTask(void *param)
 {
-
   while (1)
   {
     vTaskDelay(SLEEP_TIME_MS);
-
-    uart->Send_Data("LOOOOL\0");
+    uart->Update("Hello");
   }
 }
 

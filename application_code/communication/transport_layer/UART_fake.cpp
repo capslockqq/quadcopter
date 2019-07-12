@@ -10,10 +10,16 @@ UART_fake::~UART_fake() {
     
 }
 
-void UART_fake::Send_Data(const char * data) {
-    std::cout << (data) << std::endl;
+void UART_fake::Update(const char *data) {
+    op_data.SetValue(data);
+    this->Send_Data();
 }
 
-void UART_fake::Receive_Data(const char * data) {
+void UART_fake::Send_Data() {
+    std::cout << (op_data.GetValue()) << std::endl;
+}
+
+void UART_fake::Receive_Data() {
     
 }
+

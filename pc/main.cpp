@@ -19,7 +19,7 @@ int main(void)
    //Creating Tasks
    Component root;
    UART_fake lol(&root, "UART", "01");
-   lol.Send_Data("Sending UART DATA \n\r");
+   lol.Update("Sending UART DATA \n\r");
    Output<const char *> output(&root, "Output", "01");
    output.SetValue("Hej");
    Bind_Input_2_Output(lol.ip_data, output);

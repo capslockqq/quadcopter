@@ -7,8 +7,11 @@ class UART : public I_Serial_Communication<const char *> {
 public:
     UART(Component *parent, const char* name, const char *id);
     ~UART(){};
-    void Send_Data(const char * data);
-    void Receive_Data(const char * data);
+    void Update(const char * data);
+
+private:
+    void Send_Data() override;
+    void Receive_Data() override;
     
     
 };

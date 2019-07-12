@@ -5,9 +5,12 @@ I_Serial_Communication(parent, name, id)
 {
 }
 
-void UART::Send_Data(const char * data) {
-    int i = 0;
+void UART::Update(const char * data) {
     this->op_data.SetValue(data);
+}
+
+void UART::Send_Data() {
+    int i = 0;
 	while(this->op_data.GetValue()[i] != '\0') {
 		while ( !( UCSR0A & (1<<UDRE0)));
         /* Put data into buffer, sends the data */
@@ -16,6 +19,6 @@ void UART::Send_Data(const char * data) {
 	}
 }
 
-void UART::Receive_Data(const char * data) {
+void UART::Receive_Data() {
 
 }
