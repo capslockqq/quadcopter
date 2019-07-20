@@ -10,7 +10,8 @@ public:
     virtual ~Drone_Control();
     void Update();
 
-    Drone_stabilize_Controller drone_stabilizer;
-    Drone_Altitude_Controller drone_altitude_controller;
+    Drone_stabilize_Controller drone_yaw_controller;
+    Drone_stabilize_Controller drone_pitch_controller;
+    Drone_stabilize_Controller drone_roll_controller;
 
 };

@@ -1,13 +1,11 @@
 #include "tasks.hpp"
+#include "Factory.hpp"
 Component root;
 #ifdef TARGET
-I_Serial_Communication<const char *> *uart = new UART(&root, "UART", "01");
+//I_Serial_Communication<const char *> *uart = new UART(&root, "UART", "01");
 #endif
 #ifdef PC
-#include <chrono>
-#include <ctime>
-#include "../application_code/components/Component.hpp"
-I_Serial_Communication<const char *> *uart = new UART_fake(&root, "Fake UART", "01");
+//I_Serial_Communication<const char *> *uart = new UART_fake(&root, "Fake UART", "01");
 
 void SimulationTask(void *param)
 {
@@ -37,10 +35,13 @@ void ControlSenderTask(void *param)
 
 void ControlTask(void *param)
 {
+  Factory<const char*, int> factory(&root, "Factory", "01");
+  I_Serial_Communication<const char*> *com_to_computer = factory.get_data_com_to_computer();
+  I_Serial_Communication<int> *com_to_imu              = factory.get_data_com_to_IMU();
   while (1)
   {
     vTaskDelay(SLEEP_TIME_MS);
-    uart->Update("Hello");
+    com_to_computer->Update("Hej");
   }
 }
 

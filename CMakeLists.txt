@@ -162,6 +162,8 @@ message(${BUILD_TYPE})
   add_definitions(-DPC=1)
   include_directories(FreeRTOS_Linux/include)
   include_directories(application_code/**)
+  include_directories(application_code/communication/transport_layer)
+
   include_directories(FreeRTOS_Linux/source/portable)
   add_subdirectory(application_code)
   add_subdirectory(pc)

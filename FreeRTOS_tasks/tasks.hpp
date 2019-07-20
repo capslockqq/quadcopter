@@ -15,7 +15,10 @@
 
 #endif
 #ifdef PC
+#include <chrono>
+#include <ctime>
 #include "../application_code/communication/transport_layer/UART_fake.hpp"
+#include "../application_code/communication/transport_layer/I2C_fake.hpp"
 #include "../FreeRTOS_Linux/include/FreeRTOS.h"
 #include "../FreeRTOS_Linux/include/task.h"
 #include <stdio.h>

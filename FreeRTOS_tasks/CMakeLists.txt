@@ -3,6 +3,7 @@
 #####################################################################
 file(GLOB FreeRTOS_Tasks_src
     "*.cpp"
+    "*.hpp"
 )
 if(BUILD_TYPE STREQUAL "TARGET")
     add_avr_library(

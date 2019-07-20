@@ -9,7 +9,8 @@ template<class T>
 class I_Serial_Communication : public Component{
 public:
     I_Serial_Communication(Component *parent, const char *name, const char *id);
-    virtual void Update(const char *)   = 0;
+    virtual void Update(const char *){};
+    virtual void Update(int){};
     Input<T> ip_data;
     Output<T> op_data;
 

@@ -2,10 +2,11 @@
 # simple AVR library
 #####################################################################
 file(GLOB communication_src
-    "*.hh"
+    "*.hpp"
     "*.h"
     "*.cc"
     "*.cpp"
+    "I2C_fake.cpp"
     )
 if(BUILD_TYPE STREQUAL "PC" OR BUILD_TYPE STREQUAL "UNITTEST")
     add_library (
