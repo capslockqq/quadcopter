@@ -15,7 +15,7 @@ public:
     virtual ~Drone_stabilize_Controller();
     void Update();
 
-    PID_Controller<float>  PID_Controller;
+    PID_Controller<float>  PID_controller;
     Input<float>    ip_measurement;
     Input<float>    ip_setpoint;
 };
