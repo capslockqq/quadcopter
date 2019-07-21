@@ -1,7 +1,13 @@
 #include "drone_stabilze_controller.hpp"
 
-Drone_stabilize_Controller::Drone_stabilize_Controller(Component *parent, const char* name, const char* id) :
+const char* INPUT_MEASUREMENT[] = {"Roll measurement", "Pitch measurement", "Yaw measurement"} ;
+const char* INPUT_SETPOINT[] = {"Roll Setpoint", "Pitch Setpoint", "Yaw Setpoint"} ;
+
+Drone_stabilize_Controller::Drone_stabilize_Controller(Component *parent, const char* name, const char* id, INPUT_NAME_INDEX index, float max, float min) :
 Component(parent, name, id)
+,PID_Controller(this, "PID Controller", "01", max, min)
+,ip_measurement(this, INPUT_MEASUREMENT[index], "02")
+,ip_setpoint(this, INPUT_SETPOINT[index], "03")
 {
     
 }

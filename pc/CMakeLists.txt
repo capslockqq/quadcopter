@@ -7,10 +7,11 @@ add_executable(pc_program main.cpp)
 target_link_libraries(  pc_program 
                         Threads::Threads
                         pc-application_code 
-                        application_code_control
                         pc-application_code_communication 
                         pc-application_code_protocols
                         pc-Free_RTOS_Tasks
                         pc-application_code_transport_layer
+                        application_code_control
                         Free_RTOS_Linux
+                        
 )

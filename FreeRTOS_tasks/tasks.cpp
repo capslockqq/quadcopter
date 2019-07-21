@@ -38,10 +38,13 @@ void ControlTask(void *param)
   Factory<const char*, int> factory(&root, "Factory", "01");
   I_Serial_Communication<const char*> *com_to_computer = factory.get_data_com_to_computer();
   I_Serial_Communication<int> *com_to_imu              = factory.get_data_com_to_IMU();
+  Drone_Control drone_controller("Drone Controller", "01");
   while (1)
   {
     vTaskDelay(SLEEP_TIME_MS);
+    drone_controller.Update();
     com_to_computer->Update("Hej");
+    
   }
 }
 

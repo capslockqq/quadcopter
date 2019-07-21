@@ -3,7 +3,6 @@
 #include "../components/Input.hpp"
 #include "../components/Output.hpp"
 #include "drone_stabilze_controller.hpp"
-#include "drone_altitude_controller.hpp"
 class Drone_Control : public Component {
 public:
     Drone_Control(const char * name, const char *id);

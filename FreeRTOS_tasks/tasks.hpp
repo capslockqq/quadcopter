@@ -4,7 +4,7 @@
 #define SAMPLE_RATE_HZ 100
 #define SLEEP_TIME_MS (1000 / SAMPLE_RATE_HZ)
 #include "../application_code/communication/transport_layer/I_Serial_Communication.hpp"
-
+#include "../application_code/control/drone_control.hpp"
 
 #ifdef TARGET
 #include "../avr_code/operators.h"

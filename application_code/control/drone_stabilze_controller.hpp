@@ -2,10 +2,20 @@
 #include "../components/Component.hpp"
 #include "../components/Input.hpp"
 #include "../components/Output.hpp"
+#include "PID_Controller.hpp"
+enum INPUT_NAME_INDEX {
+    ROLL,
+    PITCH,
+    YAW
+};
 
 class Drone_stabilize_Controller : public Component {
 public:
-    Drone_stabilize_Controller(Component *parent, const char* name, const char* id);
+    Drone_stabilize_Controller(Component *parent, const char* name, const char* id, INPUT_NAME_INDEX index, float max, float min);
     virtual ~Drone_stabilize_Controller();
     void Update();
+
+    PID_Controller<float>  PID_Controller;
+    Input<float>    ip_measurement;
+    Input<float>    ip_setpoint;
 };
