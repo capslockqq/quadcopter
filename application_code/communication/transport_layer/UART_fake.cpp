@@ -12,7 +12,7 @@ UART_fake::~UART_fake() {
 
 void UART_fake::Update(const char *data) {
     op_data.SetValue(data);
-    this->Send_Data();
+    // this->Send_Data();
 }
 
 void UART_fake::Send_Data() {

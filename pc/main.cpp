@@ -9,14 +9,16 @@
 #include "../application_code/components/Binds.hpp"
 #include "../FreeRTOS_tasks/tasks.hpp"
 
-
+#include "../application_code/interface.hpp"
+#include "../application_code/implementation.hpp"
 template <class T>
 void printIO(Input<T> i, Output<T> o);
 
 
 int main(void)
 {
-   SetUp_Tasks();
+   Tasks tasks;
+   tasks.SetUp_Tasks(tasks);
    return 0;
 }
 template <class T>

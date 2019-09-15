@@ -18,5 +18,5 @@ void I2C_fake::Receive_Data() {
 }
 
 void I2C_fake::Update(int data) {
-    
+    op_data.SetValue(data);
 }

@@ -1,61 +1,55 @@
 #include "tasks.hpp"
-#include "Factory.hpp"
-Component root;
-#ifdef TARGET
-//I_Serial_Communication<const char *> *uart = new UART(&root, "UART", "01");
-#endif
-#ifdef PC
-//I_Serial_Communication<const char *> *uart = new UART_fake(&root, "Fake UART", "01");
-
-void SimulationTask(void *param)
+Tasks::Tasks() :
+Component(this, "Tasks", "01")
+,com_to_computer(this, "Com to PC", "01")
+,com_to_imu(this, "Com to IMU", "02")
+,drone_controller("Drone controller", "03")
 {
-  while(1) {
-    static int ticks = 0;
-    ticks++;
-    auto start = std::chrono::system_clock::now();
+} 
+
+Tasks::~Tasks() {
+    
+}
+
+void Tasks::ControlSenderTask(void *param) {
+    
+}
+
+void Tasks::ControlTask(void *param) {
+
+  Tasks* task = (Tasks*)param;
+  int ticks = 0;
+  double i = 1;
+  double result = 0;
+  while (1)
+  {
     vTaskDelay(SLEEP_TIME_MS);
-    auto end = std::chrono::system_clock::now();
-    static std::chrono::duration<double> elapsed_seconds = end-start;
-    elapsed_seconds += end-start;
+    task->drone_controller.Update();
+    task->drone_controller.drone_pitch_controller.ip_setpoint.SetValue(result);
+    result = i*i;
+    i++;
+    // com_to_imu->Update(3);
+    #ifdef PC 
+    ticks++;
     if (ticks >= SIMULATION_TIME_MS/SLEEP_TIME_MS) {
-      std::cout << elapsed_seconds.count()/ticks << std::endl;
-      std::cout << SIMULATION_TIME_MS/SLEEP_TIME_MS << std::endl;
+        std::cout << ticks << std::endl;
 
       vTaskEndScheduler();
       return;
     }
+    #endif
+    task->com_to_computer.Update("12");
+    task->com_to_imu.Update(12);
   }
 }
-#endif
 
-void ControlSenderTask(void *param)
-{
-
-}
-
-void ControlTask(void *param)
-{
-  Factory<const char*, int> factory(&root, "Factory", "01");
-  I_Serial_Communication<const char*> *com_to_computer = factory.get_data_com_to_computer();
-  I_Serial_Communication<int> *com_to_imu              = factory.get_data_com_to_IMU();
-  Drone_Control drone_controller("Drone Controller", "01");
-  while (1)
-  {
-    vTaskDelay(SLEEP_TIME_MS);
-    drone_controller.Update();
-    com_to_computer->Update("Hej");
+void Tasks::IMUReceiverTask(void *param) {
     
-  }
 }
 
-void SetUp_Tasks()
-{
-
-  xTaskCreate(ControlTask, "Print", configMINIMAL_STACK_SIZE, NULL, 7, NULL);
-  #ifdef PC 
-  xTaskCreate(SimulationTask, "Simu", configMINIMAL_STACK_SIZE, NULL, 9, NULL);
-  #endif
+void Tasks::SetUp_Tasks(Tasks &task) {
+  xTaskCreate(this->ControlTask, "Controller", configMINIMAL_STACK_SIZE, this, 7, NULL);
   // START SCHELUDER
   vTaskStartScheduler();
-  vTaskEndScheduler();
+  vTaskEndScheduler();  
 }

@@ -102,24 +102,6 @@ message(${BUILD_TYPE})
   message(STATUS "Set CMAKE_SYSTEM_LIBRARY_PATH to ${CMAKE_SYSTEM_LIBRARY_PATH}")
 
   ##########################################################################
-  # set compiler options for build types
-  ##########################################################################
-  if(CMAKE_BUILD_TYPE MATCHES Release)
-    set(CMAKE_C_FLAGS_RELEASE "-Os")
-    set(CMAKE_CXX_FLAGS_RELEASE "-Os")
-  endif(CMAKE_BUILD_TYPE MATCHES Release)
-
-  if(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO "-Os -save-temps -g -gdwarf-3 -gstrict-dwarf")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Os -save-temps -g -gdwarf-3 -gstrict-dwarf")
-  endif(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
-
-  if(CMAKE_BUILD_TYPE MATCHES Debug)
-    set(CMAKE_C_FLAGS_DEBUG "-O0 -save-temps -g -gdwarf-3 -gstrict-dwarf")
-    set(CMAKE_CXX_FLAGS_DEBUG "-O0 -save-temps -g -gdwarf-3 -gstrict-dwarf")
-  endif(CMAKE_BUILD_TYPE MATCHES Debug)
-
-  ##########################################################################
   # compiler options for all build types
   ##########################################################################
   
@@ -155,19 +137,24 @@ message(${BUILD_TYPE})
   elseif(BUILD_TYPE STREQUAL "PC")
   project(pc-example)
   add_definitions(-DBUILD=1 )
+  add_definitions("-Os")
   add_definitions("-std=c++11")
   add_definitions("-fpermissive")
   set(CMAKE_C_COMPILER "gcc")
   set(CMAKE_CXX_COMPILER "g++")
   add_definitions(-DPC=1)
+  include_directories(FreeRTOS_Linux)
   include_directories(FreeRTOS_Linux/include)
+  include_directories(FreeRTOS_Linux/source/portable)
+  include_directories(FreeRTOS_Linux/source)
   include_directories(application_code/**)
   include_directories(application_code/communication/transport_layer)
 
-  include_directories(FreeRTOS_Linux/source/portable)
+
+  add_subdirectory(FreeRTOS_Linux)
+
   add_subdirectory(application_code)
   add_subdirectory(pc)
-  add_subdirectory(FreeRTOS_Linux)
   add_subdirectory(FreeRTOS_tasks)
 
   elseif(BUILD_TYPE STREQUAL "UNITTEST")

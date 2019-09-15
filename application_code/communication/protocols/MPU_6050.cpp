@@ -1,6 +1,6 @@
 #include "MPU_6050.hpp"
 
-MPU_6050::MPU_6050(I_Serial_Communication<const char*> *SerialCommunication)
+MPU_6050::MPU_6050(I_Serial_Communication<const char*, MPU_6050> *SerialCommunication)
 {
     _serialCommunication = (SerialCommunication) ? _serialCommunication : nullptr;
 }

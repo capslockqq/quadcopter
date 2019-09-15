@@ -4,6 +4,9 @@
 file(GLOB FreeRTOS_Linux_src
     "*.c"
     "portable/*.c"
+    "*.h"
+    "portable/*.h"
+
 )
 if(BUILD_TYPE STREQUAL "TARGET")
 else()

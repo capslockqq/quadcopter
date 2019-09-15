@@ -1,6 +1,6 @@
-#define F_CPU 16000000UL // 16 MHz clock speed
 
 #include <avr/io.h>
+#define F_CPU 16000000UL // 16 MHz clock speed
 #include <stdio.h>
 #include "../FreeRTOS_avr/include/FreeRTOS.h"
 #include "../FreeRTOS_avr/include/task.h"
@@ -11,7 +11,8 @@
 #include "../application_code/components/Binds.hpp"
 #define BUAD    9600
 #define BRC     ((F_CPU/8/BUAD) - 1)
- 
+#include "../application_code/interface.hpp"
+#include "../application_code/implementation.hpp"
  
 void appendSerial(char c);
 void serialWrite(const char *c);
@@ -26,7 +27,9 @@ void InitUART() {
 int main(void)
 {
 	InitUART();
-	SetUp_Tasks();
+	Tasks tasks;
+   	tasks.SetUp_Tasks(tasks);
+	
 	return 0;
 }
 
