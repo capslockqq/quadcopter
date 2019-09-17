@@ -7,6 +7,7 @@ template <class T>
 class PID_Controller : public Component {
 public:
     PID_Controller(Component *, const char*, const char*, float max_limit, float min_limit);
+    ComponentType type() {return output; }
     void Set_P_Gain(T p_gain);
     void Set_I_Gain(T i_gain);
     T    Get_P_Gain();

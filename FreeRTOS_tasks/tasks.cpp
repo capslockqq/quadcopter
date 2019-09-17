@@ -1,9 +1,10 @@
 #include "tasks.hpp"
 Tasks::Tasks() :
-Component(this, "Tasks", "01")
-,com_to_computer(this, "Com to PC", "01")
-,com_to_imu(this, "Com to IMU", "02")
-,drone_controller("Drone controller", "03")
+Component(this, "Tasks", "Tsk")
+// ,com_to_computer(this, "Com to PC", "ComPC")
+// ,com_to_imu(this, "Com to IMU", "02")
+// ,drone_controller("Drone controller", "DRONE")
+,application("Application", "App")
 {
 } 
 
@@ -15,31 +16,35 @@ void Tasks::ControlSenderTask(void *param) {
     
 }
 
+#ifdef PC
+float Tasks::m_simulation_time_seconds;
+std::string Tasks::m_path_to_test_folder;
+#endif
 void Tasks::ControlTask(void *param) {
 
   Tasks* task = (Tasks*)param;
-  int ticks = 0;
+  
   double i = 1;
   double result = 0;
   while (1)
   {
     vTaskDelay(SLEEP_TIME_MS);
-    task->drone_controller.Update();
-    task->drone_controller.drone_pitch_controller.ip_setpoint.SetValue(result);
-    result = i*i;
-    i++;
-    // com_to_imu->Update(3);
+    task->application.Update();
     #ifdef PC 
+    static int ticks = 0;
     ticks++;
-    if (ticks >= SIMULATION_TIME_MS/SLEEP_TIME_MS) {
-        std::cout << ticks << std::endl;
-
-      vTaskEndScheduler();
-      return;
-    }
+     if (ticks >= SAMPLE_FREQUENCY*m_simulation_time_seconds) {
+       std::cout << "-----------------------Ending simulation-----------------------" << std::endl;
+       std::cout << "Ticks: " << ticks << std::endl;
+       std::cout << "Simulation time: " << ticks/SAMPLE_FREQUENCY << std::endl;
+       std::cout << "---------------------------------------------------------------" << std::endl;
+       std::cout << "Simulation folder: " << m_path_to_test_folder << std::endl;
+    
+       vTaskEndScheduler();
+       return;
+     }
     #endif
-    task->com_to_computer.Update("12");
-    task->com_to_imu.Update(12);
+
   }
 }
 
@@ -53,3 +58,4 @@ void Tasks::SetUp_Tasks(Tasks &task) {
   vTaskStartScheduler();
   vTaskEndScheduler();  
 }
+

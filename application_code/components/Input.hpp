@@ -8,6 +8,7 @@ class Input : public Component
 public:
 	Input(Component *parent, const char *name, const char *id);
 	~Input();
+	ComponentType type() { return ComponentType::input;}
 	T GetValue();
 	T* GetValueAddress();
 	void SetValue(T value);
@@ -19,7 +20,7 @@ private:
 };
 template <class T>
 inline Input<T>::Input(Component *parent, const char *name, const char *id) :
-Component(parent, name, id)
+Component(parent, name, id, input)
 {
 }
 
