@@ -8,6 +8,7 @@ class PID_Controller : public Component {
 public:
     PID_Controller(Component *, const char*, const char*, float max_limit, float min_limit);
     ComponentType type() {return output; }
+    void Init();
     void Set_P_Gain(T p_gain);
     void Set_I_Gain(T i_gain);
     T    Get_P_Gain();
@@ -34,6 +35,11 @@ Component(parent, name, id)
 ,_max_limit(max_limit)
 ,_min_limit(min_limit)
 {
+}
+template <class T>
+void PID_Controller<T>::Init() {
+    ip_error.SetValue(0);
+    op_control_signal.SetValue(0);
 }
 template <class T>
 void PID_Controller<T>::Set_P_Gain(T p_gain) {

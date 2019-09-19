@@ -30,6 +30,10 @@ void Tasks::ControlTask(void *param) {
   {
     vTaskDelay(SLEEP_TIME_MS);
     task->application.Update();
+    
+    #ifdef PC
+    UpdateOutputs();
+    #endif
     #ifdef PC 
     static int ticks = 0;
     ticks++;
@@ -51,9 +55,36 @@ void Tasks::ControlTask(void *param) {
 void Tasks::IMUReceiverTask(void *param) {
     
 }
+#ifdef PC
+void Tasks::UpdateOutputs() {
+  OutputObserver *L = OutputObserver::GetInstance();
+  auto list = L->GetUpdate();
+  for (auto i : list) {
+    if (std::get<1>(i) == "bool") {
+      Output<bool>*tmp = (Output<bool>*)std::get<0>(i); 
+      tmp->Update_Log();;
+    }
+      
+    else if (std::get<1>(i) == "float") {
+      Output<float>*tmp = (Output<float>*)std::get<0>(i); 
+      tmp->Update_Log();;
+    }
+    else if (std::get<1>(i) == "double") {
+      Output<double>*tmp = (Output<double>*)std::get<0>(i); 
+      tmp->Update_Log();;
+    }
+    else if (std::get<1>(i) == "int") {
+      Output<int>*tmp = (Output<int>*)std::get<0>(i); 
+      tmp->Update_Log();;
+    }
+    else std:cout << "hel" << std::endl;
+    
+  }
+}
+#endif
 
 void Tasks::SetUp_Tasks(Tasks &task) {
-  xTaskCreate(this->ControlTask, "Controller", configMINIMAL_STACK_SIZE, this, 7, NULL);
+  xTaskCreate(this->ControlTask, "Controller",    configMINIMAL_STACK_SIZE, this, 7, NULL);
   // START SCHELUDER
   vTaskStartScheduler();
   vTaskEndScheduler();  

@@ -8,6 +8,7 @@ Component(parent, name, id)
 ,PID_controller(this, "PID Controller", "PID", max, min)
 ,ip_measurement(this, INPUT_MEASUREMENT[index], "MEAS")
 ,ip_setpoint(this, INPUT_SETPOINT[index], "SP")
+,op_test(this, "lol", "test")
 {
     PID_controller.Set_P_Gain(1.0);
 }
@@ -16,6 +17,13 @@ Drone_stabilize_Controller::~Drone_stabilize_Controller() {
     
 }
 
+void Drone_stabilize_Controller::Init() {
+    ip_measurement.SetValue(0.0);
+    ip_setpoint.SetValue(0.0);
+    op_test.SetValue(false);
+}
+
 void Drone_stabilize_Controller::Update() {
+    op_test.SetValue(1);
     PID_controller.Calculate_Output(ip_setpoint.GetValue() - ip_measurement.GetValue());
 }

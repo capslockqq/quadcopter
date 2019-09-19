@@ -9,12 +9,15 @@
 #include "../application_code/components/Binds.hpp"
 #include "../FreeRTOS_tasks/tasks.hpp"
 #include "../application_code/components/Singleton.hpp"
+#include "../application_code/components/OutputObserver.hpp"
 #include "../application_code/interface.hpp"
 #include "../application_code/implementation.hpp"
+#include "../application_code/components/type_name.hpp"
 template <class T>
 void printIO(Input<T> i, Output<T> o);
 
 SingletonLogging *SingletonLogging::instance = 0;
+OutputObserver *OutputObserver::instance = 0;
 int main(int argc, char * argv[])
 {
    //Clearing ID file
@@ -31,6 +34,7 @@ int main(int argc, char * argv[])
    }
    S->SetData(ids_to_log);
    
+   OutputObserver *L = OutputObserver::GetInstance();
 
    Tasks tasks;
 

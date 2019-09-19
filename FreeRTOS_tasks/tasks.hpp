@@ -10,6 +10,10 @@
 #include "../FreeRTOS_Linux/include/queue.h"
 #include "../FreeRTOS_Linux/include/semphr.h"
 #include "../application_code/components/Singleton.hpp"
+#include "../application_code/components/OutputObserver.hpp"
+#include "../application_code/components/type_name.hpp"
+
+
 #endif
 
 #ifdef TARGET
@@ -33,6 +37,9 @@ private:
     void ControlSenderTask(void *param);
     static void ControlTask(void *param);
     static void IMUReceiverTask(void *param);
+    #ifdef PC
+    static void UpdateOutputs();
+    #endif
     Application_code application;
 };
 

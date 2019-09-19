@@ -3,11 +3,13 @@
 #include "Input.hpp"
 #include "Component.hpp"
 #ifdef PC
+#include "OutputObserver.hpp"
 #include "Singleton.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include "type_name.hpp"
 using namespace std;
 #endif
 template <class T>
@@ -22,6 +24,7 @@ public:
 	void SetValue(T value);
 	#ifdef PC
 	#include <string>
+	void Update_Log();
 	std::string _fileName;
 	std::string _logging_ids;
 	ofstream output_file;
@@ -37,7 +40,6 @@ inline Output<T>::Output(Component *parent, const char *name, const char *id) :
 Component(parent, name, id, output)
 {
 	#ifdef PC
-	
 	SingletonLogging *S = SingletonLogging::GetInstance();
     auto v = S->GetData();
 	if (v.size() > 1) {
@@ -54,22 +56,10 @@ Component(parent, name, id, output)
 	}
    	
 	if (logging) {
-		_fileName = "";
-		Component *compo = this;
-		Component *last_component;
-		int max_number_of_parents = 9;
-		int number_of_parents = 0;
-		while(true) {
-			number_of_parents++;
-			if (number_of_parents > max_number_of_parents) break;
-			if (!compo || compo == last_component) {
-				break;
-			}
-			_fileName += (string)compo->GetName() + (string)"_";
-			last_component = compo;
-			compo = compo->GetParent();
-			if (!compo) std::cout << "NULL" << std::endl;
-		}
+		OutputObserver *L = OutputObserver::GetInstance();
+		int* ptr_to_obj = (int*)this;
+		L->Add_Output(ptr_to_obj, type_name<decltype(GetValue())>());
+		_fileName = this->str_id;
 		//std::reverse(_fileName.begin(), _fileName.end());
 		_fileName += ".txt";
 
@@ -106,10 +96,16 @@ void Output<T>::SetValue(T value) {
 	*_value = value;
 	
 	#ifdef PC
+	
+  	
+	#endif 
+}
+#ifdef PC
+template <class T>
+void Output<T>::Update_Log() {
 	if (logging) {
 		output_file << *_value;
 		output_file << ";\n";
 	}
-  	
-	#endif 
 }
+#endif

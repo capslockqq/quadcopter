@@ -14,6 +14,8 @@ void Application_code::Update() {
     static int i = 0;
     drone_controller.Update();
     drone_controller.drone_pitch_controller.ip_setpoint.SetValue(result);
+    drone_controller.drone_yaw_controller.ip_setpoint.SetValue(32);
+    drone_controller.drone_yaw_controller.PID_controller.op_control_signal.SetValue(33);
     result = i*i;
     i++;
 }

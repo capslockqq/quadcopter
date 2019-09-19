@@ -1,7 +1,7 @@
 
 #pragma once
-#include "Output.hpp"
 #include "Component.hpp"
+#include "Output.hpp"
 template <class T>
 class Input : public Component
 {
