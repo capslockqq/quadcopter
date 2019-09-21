@@ -1,4 +1,4 @@
 build_target
 build_pc
 build_unittest
-simulation_tests/*/tmp
+simulation_tests/*/tmp/

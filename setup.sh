@@ -1,3 +1,4 @@
+#!/bin/bash
 mkdir build_pc
 mkdir build_target
 mkdir build_unittest
