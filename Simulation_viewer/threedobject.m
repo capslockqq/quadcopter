@@ -47,17 +47,18 @@
 %     drawnow
 % end
 h = animatedline;
-
-data = readmatrix('data.txt');
+t = animatedline;
+data = readmatrix('output_file.txt');
 data_length = length(data);
 k = 1;
 while k < data_length
     
     addpoints(h,k, data(k));
+    addpoints(t,k, data(k,3));
     drawnow
     if k == data_length-1
         pause(0.05);
-        data = readmatrix('data.txt'); 
+        data = readmatrix('output_file.txt'); 
         if length(data) > data_length
             display(length(data))
             display(data_length)

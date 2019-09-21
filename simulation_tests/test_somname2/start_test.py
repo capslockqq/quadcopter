@@ -34,21 +34,27 @@ for id_to_log in ids:
 current_path = os.path.dirname(os.path.abspath(__file__))
 execute = './pc_program ' + simulation_time + ' ' + ids_to_log_str
 print(execute)
-
+call('cd ' + current_path + ' && ' + path_to_executable + ' && ' + 'make', shell=True)
 Thread(target=test).start()
-time.sleep(0.2)
 id_files = []
 for id_to_log in ids:
     id_files.append(open('../../build_pc/pc/'+id_to_log+'.txt', 'r'))
 
-output_file = open(generated_test_folder+'/output_file.simu', 'a')
+output_file = open(generated_test_folder+'/output_file.txt', 'a')
 
 length = len(id_files)
 index = 1
-line = ""
-for line in id_files[1]:
+number_of_id_file = 1
+line_data = ""
+while True:
     for id_file in id_files:
-        output_file.write(id_file.readline())
+        line_read = id_file.readline()
+        append = ";" if number_of_id_file < len(id_files) else ""
+        line_data += line_read[:line_read.find(';')] + append
+        number_of_id_file += 1
+    number_of_id_file = 1
+    if not line_read: break
+    output_file.write(line_data)
     output_file.write('\n')
-    line = ""
+    line_data = ""
     index += 1
