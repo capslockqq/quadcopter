@@ -1,4 +1,5 @@
 #!/bin/bash
+#output_script.sh
 cd ..
 cd build_target
 make
