@@ -25,7 +25,7 @@ pipeline {
         
         stage ('Program Target Stage') {
             steps {
-                sh 'cd flash && sudo chmod 666 /dev/ttyACM0 && sudo chmod +x output_script.sh && sh output_script.sh'
+                sh 'cd flash && sudo chmod 666 /dev/ttyACM0 && sudo chmod +x output_script.sh && sudo sh output_script.sh'
             }
         }
     }
