@@ -12,7 +12,7 @@
 #include "../application_code/components/Singleton.hpp"
 #include "../application_code/components/OutputObserver.hpp"
 #include "../application_code/components/type_name.hpp"
-
+#include "../application_code/components/ParameterWrite.hpp"
 
 #endif
 
@@ -37,8 +37,10 @@ private:
     void ControlSenderTask(void *param);
     static void ControlTask(void *param);
     static void IMUReceiverTask(void *param);
-    #ifdef PC
     static void UpdateOutputs();
+    static void UpdateParameters();
+    #ifdef PC
+    static void UpdateOutputLog();
     #endif
     Application_code application;
 };

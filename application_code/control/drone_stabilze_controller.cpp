@@ -8,7 +8,8 @@ Component(parent, name, id)
 ,PID_controller(this, "PID Controller", "PID", max, min)
 ,ip_measurement(this, INPUT_MEASUREMENT[index], "MEAS")
 ,ip_setpoint(this, INPUT_SETPOINT[index], "SP")
-,op_test(this, "lol", "test")
+,op_test(this, "SOME NAME", "OK")
+,op_test2(this, "SOME NAME2", "OK2")
 {
     PID_controller.Set_P_Gain(1.0);
 }

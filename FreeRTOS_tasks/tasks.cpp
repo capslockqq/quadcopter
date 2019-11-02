@@ -30,9 +30,10 @@ void Tasks::ControlTask(void *param) {
   {
     vTaskDelay(SLEEP_TIME_MS);
     task->application.Update();
-    
+    task->UpdateOutputs();
+    task->UpdateParameters();
     #ifdef PC
-    UpdateOutputs();
+    UpdateOutputLog();
     #endif
     #ifdef PC 
     static int ticks = 0;
@@ -43,7 +44,13 @@ void Tasks::ControlTask(void *param) {
        std::cout << "Simulation time: " << ticks/SAMPLE_FREQUENCY << std::endl;
        std::cout << "---------------------------------------------------------------" << std::endl;
        std::cout << "Simulation folder: " << m_path_to_test_folder << std::endl;
-    
+       std::cout << "Number of outputs: " << task->application.drone_controller.drone_roll_controller.PID_controller.op_control_signal.number_of_outputs << std::endl;
+       ParameterWrite *paramwrite = ParameterWrite::GetInstance();
+       std::cout << "Number of parameters: " << paramwrite->get_number_of_param()<< std::endl;
+       std::cout << "ID: " << task->application.drone_controller.drone_pitch_controller.PID_controller.op_control_signal.GetUniqueId() << std::endl;
+       std::cout << "Str ID: " << task->application.drone_controller.drone_pitch_controller.PID_controller.op_control_signal.str_id << std::endl;
+       std::cout << "Name: " << task->application.drone_controller.drone_pitch_controller.PID_controller.op_control_signal.GetUniqueName() << std::endl;
+       std::cout << "Str Name: " << task->application.drone_controller.drone_pitch_controller.PID_controller.op_control_signal.str_name << std::endl;
        vTaskEndScheduler();
        return;
      }
@@ -55,27 +62,36 @@ void Tasks::ControlTask(void *param) {
 void Tasks::IMUReceiverTask(void *param) {
     
 }
-#ifdef PC
+
 void Tasks::UpdateOutputs() {
+
+}
+
+void Tasks::UpdateParameters() {
+
+}
+
+#ifdef PC
+void Tasks::UpdateOutputLog() {
   OutputObserver *L = OutputObserver::GetInstance();
   auto list = L->GetUpdate();
   for (auto i : list) {
     if (std::get<1>(i) == "bool") {
       Output<bool>*tmp = (Output<bool>*)std::get<0>(i); 
-      tmp->Update_Log();;
+      tmp->Update_Log();
     }
       
     else if (std::get<1>(i) == "float") {
       Output<float>*tmp = (Output<float>*)std::get<0>(i); 
-      tmp->Update_Log();;
+      tmp->Update_Log();
     }
     else if (std::get<1>(i) == "double") {
       Output<double>*tmp = (Output<double>*)std::get<0>(i); 
-      tmp->Update_Log();;
+      tmp->Update_Log();
     }
     else if (std::get<1>(i) == "int") {
       Output<int>*tmp = (Output<int>*)std::get<0>(i); 
-      tmp->Update_Log();;
+      tmp->Update_Log();
     }
     else std:cout << "hel" << std::endl;
     

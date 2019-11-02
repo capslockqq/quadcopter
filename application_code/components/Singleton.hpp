@@ -6,12 +6,14 @@ class SingletonLogging {
 private:
    static SingletonLogging *instance;
    vector<string> data;
- 
    // Private constructor so that no objects can be created.
    SingletonLogging() {
+      number_of_outputs = 0;
    }
 
    public:
+   int number_of_outputs;
+
    static SingletonLogging *GetInstance() {
       if (!instance){
         instance = new SingletonLogging;
@@ -25,5 +27,8 @@ private:
 
    void SetData(vector<string> data) {
       this -> data = data;
+   }
+   void count() {
+      number_of_outputs++;
    }
 };

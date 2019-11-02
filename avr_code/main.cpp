@@ -6,14 +6,14 @@
 #include "../FreeRTOS_avr/include/task.h"
 #include "communication/transport_layer/UART.hpp"
 #include "operators.h"
-
+#include "../application_code/components/ParameterWrite.hpp"
 #include "../FreeRTOS_tasks/tasks.hpp"
 #include "../application_code/components/Binds.hpp"
 #define BUAD    9600
 #define BRC     ((F_CPU/8/BUAD) - 1)
 #include "../application_code/interface.hpp"
 #include "../application_code/implementation.hpp"
- 
+#include <string.h>
 void appendSerial(char c);
 void serialWrite(const char *c);
 void InitUART() {
@@ -24,8 +24,15 @@ void InitUART() {
 }
 
 // MAIN PROGRAM
+ParameterWrite *ParameterWrite::instance = 0;
+
 int main(void)
 {
+	char buf[100];
+	const char *one = "o";
+	const char *two = "t";
+	strcpy(buf, one);
+	strcat(buf, two);
 	InitUART();
 	Tasks tasks;
    	tasks.SetUp_Tasks(tasks);

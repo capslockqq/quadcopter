@@ -22,6 +22,7 @@ public:
 	T GetValue();
 	T* GetValueAddress();
 	void SetValue(T value);
+	static int number_of_outputs;
 	#ifdef PC
 	#include <string>
 	void Update_Log();
@@ -35,12 +36,20 @@ private:
 	T* _value = new T();
 	bool first_time = true;
 };
+
+template <typename T> int Output<T>::number_of_outputs(0);
+
 template <class T>
 inline Output<T>::Output(Component *parent, const char *name, const char *id) :
 Component(parent, name, id, output)
 {
 	#ifdef PC
+	number_of_outputs++;
+
 	SingletonLogging *S = SingletonLogging::GetInstance();
+	S->count();
+	std::cout << "Creating obj: " << S->number_of_outputs << std::endl;
+
     auto v = S->GetData();
 	if (v.size() > 1) {
 		for(auto t=v.begin(); t!=v.end(); ++t) {
@@ -94,11 +103,6 @@ void Output<T>::SetValue(T value) {
 		return;
 	}
 	*_value = value;
-	
-	#ifdef PC
-	
-  	
-	#endif 
 }
 #ifdef PC
 template <class T>

@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <string.h>
 
 #include "../application_code/components/Input.hpp"
 #include "../application_code/components/Output.hpp"
@@ -13,11 +14,10 @@
 #include "../application_code/interface.hpp"
 #include "../application_code/implementation.hpp"
 #include "../application_code/components/type_name.hpp"
-template <class T>
-void printIO(Input<T> i, Output<T> o);
-
+#include "../application_code/components/ParameterWrite.hpp"
 SingletonLogging *SingletonLogging::instance = 0;
 OutputObserver *OutputObserver::instance = 0;
+ParameterWrite *ParameterWrite::instance = 0;
 int main(int argc, char * argv[])
 {
    //Clearing ID file
@@ -46,16 +46,18 @@ int main(int argc, char * argv[])
    else {
       tasks.m_simulation_time_seconds = 1.0f;
    }
-
+   char buf[100];
+   const char *one = "one";
+   const char *two = "two";
+   const char *h = "-";
+   strcpy(buf, one);
+   strcat(buf, h);
+   strcat(buf, two);
+   std::cout << "BUF: " << buf << std::endl;
    tasks.SetUp_Tasks(tasks);
    
    #endif
    
    return 0;
 }
-template <class T>
-void printIO(Input<T> i, Output<T> o)
-{
-   std::cout << "Output: " << o.GetValue() << std::endl;
-   std::cout << "Input: " << i.GetValue() << std::endl;
-}
+

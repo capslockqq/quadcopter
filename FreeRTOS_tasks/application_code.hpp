@@ -2,7 +2,7 @@
 #include "../application_code/components/Component.hpp"
 #include "../application_code/communication/transport_layer/I_Serial_Communication.hpp"
 #include "../application_code/control/drone_control.hpp"
-
+#include "../application_code/components/Parameter.hpp"
 #ifdef TARGET
 #include "../avr_code/operators.h"
 #include <avr/io.h>
@@ -37,6 +37,9 @@ public:
     void Update();
     I_Serial_Communication<const char *, COM_TO_PC> com_to_computer;
     Drone_Control drone_controller;
+
+    Parameter<int> _param;
+    Parameter<int> _param2;
 private:
     
 };

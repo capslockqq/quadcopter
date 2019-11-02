@@ -19,4 +19,5 @@ public:
     Input<float>    ip_measurement;
     Input<float>    ip_setpoint;
     Output<bool>    op_test;
+    Output<bool>    op_test2;
 };
