@@ -35,6 +35,7 @@ public:
     Application_code(const char* name, const char * id);
     virtual ~Application_code(){};
     void Update();
+    I_Serial_Communication<const char *, COM_TO_PC> com_to_computer;
     Drone_Control drone_controller;
 
     Parameter<int> _param;
