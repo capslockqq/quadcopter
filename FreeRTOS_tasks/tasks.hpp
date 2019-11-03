@@ -1,7 +1,7 @@
 #pragma once
 #include "../application_code/components/Component.hpp"
 #include "application_code.hpp"
-#define SAMPLE_FREQUENCY 100 // Hz
+#define SAMPLE_FREQUENCY 1 // Hz
 
 #ifdef PC
 #define SLEEP_TIME_MS 0.0001f
