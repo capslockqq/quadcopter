@@ -7,6 +7,7 @@ I_Serial_Communication(parent, name, id)
 
 void UART::Update(const char * data) {
     this->op_data.SetValue(data);
+    Send_Data();
 }
 
 void UART::Send_Data() {
