@@ -29,7 +29,6 @@ void Tasks::ControlTask(void *param) {
   while (1)
   {
     vTaskDelay(SLEEP_TIME_MS);
-    task->application.Update();
     ParameterWrite *paramwrite = ParameterWrite::GetInstance();
     for (int i = 0; i < paramwrite->bool_index; i++) {
          Parameter<bool>*tmp = (Parameter<bool>*)paramwrite->bool_params[i]; 
