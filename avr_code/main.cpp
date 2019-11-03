@@ -35,6 +35,7 @@ int main(void)
 	strcat(buf, two);
 	InitUART();
 	Tasks tasks;
+	ParameterWrite *something = ParameterWrite::GetInstance();
    	tasks.SetUp_Tasks(tasks);
 	
 	return 0;

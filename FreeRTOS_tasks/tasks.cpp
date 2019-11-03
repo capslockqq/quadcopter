@@ -30,6 +30,11 @@ void Tasks::ControlTask(void *param) {
   {
     vTaskDelay(SLEEP_TIME_MS);
     task->application.Update();
+    ParameterWrite *paramwrite = ParameterWrite::GetInstance();
+    for (int i = 0; i < paramwrite->bool_index; i++) {
+         Parameter<bool>*tmp = (Parameter<bool>*)paramwrite->bool_params[i]; 
+         tmp->SetValue(false);
+       }
     task->UpdateOutputs();
     task->UpdateParameters();
     #ifdef PC
@@ -45,8 +50,26 @@ void Tasks::ControlTask(void *param) {
        std::cout << "---------------------------------------------------------------" << std::endl;
        std::cout << "Simulation folder: " << m_path_to_test_folder << std::endl;
        std::cout << "Number of outputs: " << task->application.drone_controller.drone_roll_controller.PID_controller.op_control_signal.number_of_outputs << std::endl;
-       ParameterWrite *paramwrite = ParameterWrite::GetInstance();
        std::cout << "Number of parameters: " << paramwrite->get_number_of_param()<< std::endl;
+       std::cout << "Params: ";
+       for (int i = 0; i < paramwrite->int_index; i++) {
+         Parameter<double>*tmp = (Parameter<double>*)paramwrite->int_params[i]; 
+         tmp->SetValue(14.4);
+         std::cout << "Param " << i << ": " << tmp->GetValue() << std::endl;
+       }
+       for (int i = 0; i < paramwrite->double_index; i++) {
+         Parameter<double>*tmp = (Parameter<double>*)paramwrite->double_params[i]; 
+         std::cout << "Param " << i << ": " << tmp->GetValue() << std::endl;
+       }
+       for (int i = 0; i < paramwrite->int_index; i++) {
+         Parameter<int>*tmp = (Parameter<int>*)paramwrite->int_params[i]; 
+         std::cout << "Param " << i << ": " << tmp->GetValue() << std::endl;
+       }
+       for (int i = 0; i < paramwrite->bool_index; i++) {
+         Parameter<double>*tmp = (Parameter<double>*)paramwrite->bool_params[i]; 
+         tmp->SetValue(100.4);
+         std::cout << "Param " << i << ": " << tmp->GetValue() << std::endl;
+       }
        vTaskEndScheduler();
        return;
      }

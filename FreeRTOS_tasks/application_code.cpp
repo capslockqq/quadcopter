@@ -2,10 +2,11 @@
 
 Application_code::Application_code(const char *name, const char *id) :
 Component(this, name, id)
-,com_to_computer(this, "Com to PC", "ComPC")
 ,drone_controller("Drone controller", "DRONE")
 ,_param(this, "Param", "05", 10)
-,_param2(this, "Param2", "06", 10)
+,_param2(this, "Param2", "06", 10.0f)
+,_param3(this, "Param2", "06", 10.5)
+,_param4(this, "Param2", "06", false)
 {
 }
 
