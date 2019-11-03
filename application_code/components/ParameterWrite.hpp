@@ -1,4 +1,5 @@
 #pragma once
+#include "Parameter.hpp"
 class ParameterWrite {
 private:
    static ParameterWrite *instance;

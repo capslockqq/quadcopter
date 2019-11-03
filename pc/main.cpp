@@ -46,14 +46,6 @@ int main(int argc, char * argv[])
    else {
       tasks.m_simulation_time_seconds = 1.0f;
    }
-   char buf[100];
-   const char *one = "one";
-   const char *two = "two";
-   const char *h = "-";
-   strcpy(buf, one);
-   strcat(buf, h);
-   strcat(buf, two);
-   std::cout << "BUF: " << buf << std::endl;
    tasks.SetUp_Tasks(tasks);
    
    #endif

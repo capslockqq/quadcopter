@@ -47,10 +47,6 @@ void Tasks::ControlTask(void *param) {
        std::cout << "Number of outputs: " << task->application.drone_controller.drone_roll_controller.PID_controller.op_control_signal.number_of_outputs << std::endl;
        ParameterWrite *paramwrite = ParameterWrite::GetInstance();
        std::cout << "Number of parameters: " << paramwrite->get_number_of_param()<< std::endl;
-       std::cout << "ID: " << task->application.drone_controller.drone_pitch_controller.PID_controller.op_control_signal.GetUniqueId() << std::endl;
-       std::cout << "Str ID: " << task->application.drone_controller.drone_pitch_controller.PID_controller.op_control_signal.str_id << std::endl;
-       std::cout << "Name: " << task->application.drone_controller.drone_pitch_controller.PID_controller.op_control_signal.GetUniqueName() << std::endl;
-       std::cout << "Str Name: " << task->application.drone_controller.drone_pitch_controller.PID_controller.op_control_signal.str_name << std::endl;
        vTaskEndScheduler();
        return;
      }

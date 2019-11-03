@@ -18,8 +18,6 @@ Parameter<T>::Parameter(Component *parent, const char *name, const char *id, T v
 Component(parent, name, id)
 {
     _value = value;
-    ParameterWrite *parawrite = ParameterWrite::GetInstance();
-    parawrite->count();
     
     
 }
