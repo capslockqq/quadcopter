@@ -31,6 +31,8 @@ int main(void)
 	char buf[100];
 	const char *one = "o";
 	const char *two = "t";
+	DDRD = 0xFF;
+	PORTD = 0xFF;
 	strcpy(buf, one);
 	strcat(buf, two);
 	InitUART();
