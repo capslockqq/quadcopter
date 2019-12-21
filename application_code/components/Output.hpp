@@ -48,7 +48,6 @@ Component(parent, name, id, output)
 
 	SingletonLogging *S = SingletonLogging::GetInstance();
 	S->count();
-	std::cout << "Creating obj: " << S->number_of_outputs << std::endl;
 
     auto v = S->GetData();
 	if (v.size() > 1) {

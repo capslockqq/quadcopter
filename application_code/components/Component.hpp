@@ -1,4 +1,6 @@
 #pragma once
+#ifndef _COMPONENT_
+#define _COMPONENT_
 #include <string.h>
 #ifdef PC
 #include <iostream>
@@ -6,6 +8,8 @@
 #include <algorithm>
 #include <stdio.h>
 #include <fstream>
+#include <map>
+
 #endif
 
 enum ComponentType {
@@ -40,16 +44,21 @@ public:
     #ifdef PC
     std::string str_id = "";
     std::string str_name = "";
+    static auto get_all_unique_ids_as_map() {
+        return _unique_ids;
+    }
     #endif
+
 private:
     
     const char *_name;
     const char *_id;
     char _id_buffer[100];
     char _name_buffer[500];
+    inline static std::map<std::string, Component*> _unique_ids;
+
     Component *_parent;
 };
-
 
 
 inline Component::Component(Component *parent, const char *name, const char *id, ComponentType component_type) : 
@@ -63,6 +72,7 @@ inline Component::Component(Component *parent, const char *name, const char *id,
         strcpy(_id_buffer, current->GetID()); //This is the first time it enters here
         strcpy(_name_buffer, current->GetName()); //This is the first time it enters here  
         current = (current->GetParent() != current) ? current->GetParent() : 0;
+        
         while(current) {
             strcat(_id_buffer, ">");
             strcat(_name_buffer, "<-");
@@ -71,6 +81,14 @@ inline Component::Component(Component *parent, const char *name, const char *id,
             current = (current->GetParent() != current) ? current->GetParent() : 0;
         }
         #ifdef PC
+        //Checking for unique IDs in code
+        if (_unique_ids.count(_id_buffer) > 0) {
+            std::cout << "ID: " << _id_buffer << " is already existing, with name: " << _name_buffer << std::endl;
+        }
+        //No Ids with that name exists
+        else {
+            _unique_ids[_id_buffer] = this;
+        }
         std::string component_type_str = "";
         if (component_type== output) {
             component_type_str = "output: ";
@@ -92,3 +110,4 @@ inline Component::Component(Component *parent, const char *name, const char *id,
 
         #endif
     }
+    #endif

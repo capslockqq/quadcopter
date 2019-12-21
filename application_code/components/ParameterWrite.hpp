@@ -37,10 +37,11 @@ private:
    }
 
    void AddParamToArray(int *param, param_type type) {
-      if (type == param_type::FLOAT) float_params[float_index++] = param;
-      else if (type == param_type::DOUBLE) double_params[double_index++] = param;
-      else if (type == param_type::INT) int_params[int_index++] = param;      
-      else if (type == param_type::BOOL) bool_params[bool_index++] = param;
+      if (type == param_type::FLOAT)         float_params[float_index++] = param;
+      else if (type == param_type::DOUBLE)   double_params[double_index++] = param;
+      else if (type == param_type::INT)      int_params[int_index++] = param;      
+      else if (type == param_type::BOOL)     bool_params[bool_index++] = param;
+      count();
    }
 
    void count() {

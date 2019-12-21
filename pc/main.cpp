@@ -28,7 +28,6 @@ int main(int argc, char * argv[])
    }
    SingletonLogging *S = SingletonLogging::GetInstance();
    vector<string> ids_to_log;
-   std::cout << "argc: " << argc << std::endl;
    for (int i = 2; i < argc; i++) {
       ids_to_log.push_back(argv[i]);
    }
@@ -38,7 +37,6 @@ int main(int argc, char * argv[])
 
    Tasks tasks;
 
-   #ifdef PC
    if (argv[1] != NULL) {
       std::string simulation_time(argv[1]);
       tasks.m_simulation_time_seconds = std::stof(simulation_time);
@@ -47,8 +45,6 @@ int main(int argc, char * argv[])
       tasks.m_simulation_time_seconds = 1.0f;
    }
    tasks.SetUp_Tasks(tasks);
-   
-   #endif
    
    return 0;
 }
