@@ -60,9 +60,10 @@ private:
    int get_number_of_param() {
       return number_of_parameters;
    }
-
+   #ifdef PC
    vector<string> get_param_ids() {
       return param_ids;
    }
+   #endif
  
 };

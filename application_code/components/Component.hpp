@@ -56,7 +56,9 @@ private:
     const char *_id;
     char _id_buffer[100];
     char _name_buffer[500];
-    inline static std::map<std::string, Component*> _unique_ids;
+    #ifdef PC
+        inline static std::map<std::string, Component*> _unique_ids;
+    #endif
 
     Component *_parent;
 };
