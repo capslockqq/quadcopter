@@ -1,5 +1,10 @@
 #pragma once
-
+#ifdef PC
+#include <iostream>
+#include <string>
+#include <map>
+using namespace std;
+#endif
 enum param_type {
    FLOAT,
    DOUBLE,
@@ -29,6 +34,11 @@ private:
    int double_index;
    int* bool_params[50];
    int bool_index;
+   #ifdef PC
+      map<string, tuple<float, float> > simlation_param_write;
+      vector<string> param_ids;
+
+   #endif
    static ParameterWrite *GetInstance() {
       if (!instance){
         instance = new ParameterWrite;
@@ -50,4 +60,9 @@ private:
    int get_number_of_param() {
       return number_of_parameters;
    }
+
+   vector<string> get_param_ids() {
+      return param_ids;
+   }
+ 
 };

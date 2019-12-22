@@ -5,11 +5,12 @@
 #ifdef PC
 #include <iostream>
 #include <string>
+#include <vector>
 #include <algorithm>
 #include <stdio.h>
 #include <fstream>
 #include <map>
-
+#include "ParameterWrite.hpp"
 #endif
 
 enum ComponentType {
@@ -74,7 +75,7 @@ inline Component::Component(Component *parent, const char *name, const char *id,
         current = (current->GetParent() != current) ? current->GetParent() : 0;
         
         while(current) {
-            strcat(_id_buffer, ">");
+            strcat(_id_buffer, "-");
             strcat(_name_buffer, "<-");
             strcat(_id_buffer, current->GetID());
             strcat(_name_buffer, current->GetName());
@@ -98,6 +99,13 @@ inline Component::Component(Component *parent, const char *name, const char *id,
         }
         else if (component_type== component) {
             component_type_str = "component: ";
+        }
+        else if (component_type == parameter) {
+            component_type_str = "parameter: ";
+            #ifdef PC
+            ParameterWrite* instance = ParameterWrite::GetInstance();
+            instance->param_ids.push_back(this->GetUniqueId());
+            #endif 
         }
         std::ofstream id_file;
         id_file.open("id_file.txt", std::ios_base::app);

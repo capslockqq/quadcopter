@@ -18,7 +18,7 @@ private:
 
 template <class T>
 Parameter<T>::Parameter(Component *parent, const char *name, const char *id, int value) :
-Component(parent, name, id)
+Component(parent, name, id, ComponentType::parameter)
 {
     ParameterWrite *s = ParameterWrite::GetInstance();
     int* ptr_to_obj = (int*)this;
@@ -27,7 +27,7 @@ Component(parent, name, id)
 }
 template <class T>
 Parameter<T>::Parameter(Component *parent, const char *name, const char *id, float value) :
-Component(parent, name, id)
+Component(parent, name, id, ComponentType::parameter)
 {
     ParameterWrite *s = ParameterWrite::GetInstance();
     int* ptr_to_obj = (int*)this;
@@ -36,7 +36,7 @@ Component(parent, name, id)
 }
 template <class T>
 Parameter<T>::Parameter(Component *parent, const char *name, const char *id, double value) :
-Component(parent, name, id)
+Component(parent, name, id, ComponentType::parameter)
 {
     ParameterWrite *s = ParameterWrite::GetInstance();
     int* ptr_to_obj = (int*)this;
@@ -45,7 +45,7 @@ Component(parent, name, id)
 }
 template <class T>
 Parameter<T>::Parameter(Component *parent, const char *name, const char *id, bool value) :
-Component(parent, name, id)
+Component(parent, name, id, ComponentType::parameter)
 {
     ParameterWrite *s = ParameterWrite::GetInstance();
     int* ptr_to_obj = (int*)this;
