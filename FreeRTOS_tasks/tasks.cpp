@@ -18,7 +18,7 @@ void Tasks::ControlSenderTask(void *param) {
 
 #ifdef PC
 float Tasks::m_simulation_time_seconds;
-std::string Tasks::m_path_to_test_folder;
+int Tasks::ticks = 0;
 #endif
 void Tasks::ControlTask(void *param) {
 
@@ -38,31 +38,18 @@ void Tasks::ControlTask(void *param) {
     task->UpdateOutputs();
     task->UpdateParameters();
     #ifdef PC
-    UpdateOutputLog();
+    task->UpdateOutputLog();
     #endif
     #ifdef PC 
-    static int ticks = 0;
+    
     ticks++;
      if (ticks >= SAMPLE_FREQUENCY*m_simulation_time_seconds) {
        std::cout << "-----------------------Ending simulation-----------------------" << std::endl;
        std::cout << "Ticks: " << ticks << std::endl;
        std::cout << "Simulation time: " << ticks/SAMPLE_FREQUENCY << std::endl;
        std::cout << "---------------------------------------------------------------" << std::endl;
-       std::cout << "Simulation folder: " << m_path_to_test_folder << std::endl;
        std::cout << "Number of outputs: " << task->application.drone_controller.drone_roll_controller.PID_controller.op_control_signal.number_of_outputs << std::endl;
        std::cout << "Number of parameters: " << paramwrite->get_number_of_param()<< std::endl;
-
-       for (int i = 0; i < paramwrite->double_index; i++) {
-         Parameter<double>*tmp = (Parameter<double>*)paramwrite->double_params[i]; 
-       }
-       for (int i = 0; i < paramwrite->int_index; i++) {
-         Parameter<int>*tmp = (Parameter<int>*)paramwrite->int_params[i]; 
-         tmp->SetValue(100);
-       }
-       for (int i = 0; i < paramwrite->bool_index; i++) {
-         Parameter<double>*tmp = (Parameter<double>*)paramwrite->bool_params[i]; 
-         tmp->SetValue(100.4);
-       }
        vTaskEndScheduler();
        return;
      }
@@ -80,7 +67,34 @@ void Tasks::UpdateOutputs() {
 }
 
 void Tasks::UpdateParameters() {
+  ParameterWrite *paramwrite = ParameterWrite::GetInstance();
+  auto all_ids = Component::get_all_unique_ids_as_map();
+  for (auto param : paramwrite->simlation_param_write) {
+    if (std::get<0>(param.second)*SAMPLE_FREQUENCY == ticks) {
+      if (paramwrite->simulation_bool_params.count(param.first)) {
+        tuple sim_param_tuple = paramwrite->simulation_bool_params[param.first];
+        std::cout << "Changing bool value from: "  << std::get<0>(sim_param_tuple)->GetValue() << " to: " << std::get<2>(sim_param_tuple) << std::endl;
+        std::get<0>(sim_param_tuple)->SetValue(std::get<2>(sim_param_tuple));
+      }
+      else if(paramwrite->simulation_float_params.count(param.first)) {
+        tuple sim_param_tuple = paramwrite->simulation_float_params[param.first];
+        std::cout << "Changing float value from: "  << std::get<0>(sim_param_tuple)->GetValue() << " to: " << std::get<2>(sim_param_tuple) << std::endl;
+        std::get<0>(sim_param_tuple)->SetValue(std::get<2>(sim_param_tuple));
+      }
 
+      else if(paramwrite->simulation_double_params.count(param.first)) {
+        tuple sim_param_tuple = paramwrite->simulation_double_params[param.first];
+        std::cout << "Changing double value from: "  << std::get<0>(sim_param_tuple)->GetValue() << " to: " << std::get<2>(sim_param_tuple) << std::endl;
+        std::get<0>(sim_param_tuple)->SetValue(std::get<2>(sim_param_tuple));
+      }
+      else if(paramwrite->simulation_int_params.count(param.first)) {
+        tuple sim_param_tuple = paramwrite->simulation_int_params[param.first];
+        std::cout << "Changing int value from: "  << std::get<0>(sim_param_tuple)->GetValue() << " to: " << std::get<2>(sim_param_tuple) << std::endl;
+        std::get<0>(sim_param_tuple)->SetValue(std::get<2>(sim_param_tuple));
+      }
+      
+    }
+  }
 }
 
 #ifdef PC
@@ -105,7 +119,11 @@ void Tasks::UpdateOutputLog() {
       Output<int>*tmp = (Output<int>*)std::get<0>(i); 
       tmp->Update_Log();
     }
-    else std:cout << "hel" << std::endl;
+    else if (std::get<1>(i) == "char const*") {
+      Output<int>*tmp = (Output<int>*)std::get<0>(i); 
+      tmp->Update_Log();
+    }
+    else std:cout << std::get<1>(i) << std::endl;
     
   }
 }

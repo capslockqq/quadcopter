@@ -25,8 +25,8 @@ private:
       return this -> data;
    }
 
-   void SetData(vector<string> data) {
-      this -> data = data;
+   void SetData(vector<string> arg_data) {
+      this -> data = arg_data;
    }
    void count() {
       number_of_outputs++;

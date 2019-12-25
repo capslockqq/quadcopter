@@ -4,13 +4,14 @@
 #include <string.h>
 #ifdef PC
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <stdio.h>
 #include <fstream>
-#include <map>
-#include "ParameterWrite.hpp"
+#include <tuple>
+using namespace std;
 #endif
 
 enum ComponentType {
@@ -19,7 +20,6 @@ enum ComponentType {
     component,
     parameter,
 };
-
 class Component {
 public:
     Component(){};
@@ -27,27 +27,15 @@ public:
     virtual ~Component(){};
     virtual ComponentType type(){ return ComponentType::component; }
 
-    Component *GetParent() {
-        return _parent;
-    }
-    const char* GetName() {
-        return _name;
-    }
-    const char* GetID() {
-        return _id;
-    }
-    const char* GetUniqueId() {
-        return _id_buffer;
-    }
-    const char* GetUniqueName() {
-        return _name_buffer;
-    }
+    Component *GetParent();
+    const char* GetName();
+    const char* GetID();
+    const char* GetUniqueId();
+    const char* GetUniqueName();
     #ifdef PC
     std::string str_id = "";
     std::string str_name = "";
-    static auto get_all_unique_ids_as_map() {
-        return _unique_ids;
-    }
+    static auto get_all_unique_ids_as_map();
     #endif
 
 private:
@@ -62,6 +50,117 @@ private:
 
     Component *_parent;
 };
+
+enum param_type {
+   FLOAT,
+   DOUBLE,
+   INT,
+   BOOL,
+};
+
+
+
+template <class T>
+class Parameter : public Component {
+public:
+    Parameter(Component *parent, const char *name, const char *id, int value);
+    Parameter(Component *parent, const char *name, const char *id, float value);
+    Parameter(Component *parent, const char *name, const char *id, double value);
+    Parameter(Component *parent, const char *name, const char *id, bool value);
+    virtual ~Parameter(){}
+    ComponentType type(){ return ComponentType::parameter; }
+    void SetValue(T val);
+    T GetValue();
+private:
+    T _value;
+};
+
+
+class ParameterWrite {
+private:
+   static ParameterWrite *instance;
+   // Private constructor so that no objects can be created.
+   ParameterWrite();
+
+   public:
+   int number_of_parameters;
+   int* float_params[50];
+   int float_index;
+   int* int_params[50];
+   int int_index;
+   int* double_params[50];
+   int double_index;
+   int* bool_params[50];
+   int bool_index;
+   #ifdef PC
+      map<int, tuple<float, float> > simlation_param_write;
+      vector<string> param_ids;
+
+   #endif
+   static ParameterWrite *GetInstance();
+
+   void AddParamToArray(int *param, param_type type);
+
+   int get_number_of_param();
+   #ifdef PC
+   vector<string> get_param_ids();
+   map<int, tuple<Parameter<float>*, float, float> > simulation_float_params;
+   map<int, tuple<Parameter<double>*, float, double> > simulation_double_params;
+   map<int, tuple<Parameter<int>*, float, int> > simulation_int_params;
+   map<int, tuple<Parameter<bool>*, float, bool> > simulation_bool_params;
+   int* get_float_param_ptr_by_id(string id_to_find);
+   int* get_double_param_ptr_by_id(string id_to_find);
+   int* get_int_param_ptr_by_id(string id_to_find);
+   int* get_bool_param_ptr_by_id(string id_to_find);
+   #endif
+ 
+};
+
+
+template <class T>
+Parameter<T>::Parameter(Component *parent, const char *name, const char *id, int value) :
+Component(parent, name, id, ComponentType::parameter)
+{
+    ParameterWrite *s = ParameterWrite::GetInstance();
+    int* ptr_to_obj = (int*)this;
+    s->AddParamToArray(ptr_to_obj, param_type::INT);
+    _value = value; 
+}
+template <class T>
+Parameter<T>::Parameter(Component *parent, const char *name, const char *id, float value) :
+Component(parent, name, id, ComponentType::parameter)
+{
+    ParameterWrite *s = ParameterWrite::GetInstance();
+    int* ptr_to_obj = (int*)this;
+    s->AddParamToArray(ptr_to_obj, param_type::FLOAT);
+    _value = value; 
+}
+template <class T>
+Parameter<T>::Parameter(Component *parent, const char *name, const char *id, double value) :
+Component(parent, name, id, ComponentType::parameter)
+{
+    ParameterWrite *s = ParameterWrite::GetInstance();
+    int* ptr_to_obj = (int*)this;
+    s->AddParamToArray(ptr_to_obj, param_type::DOUBLE);
+    _value = value; 
+}
+template <class T>
+Parameter<T>::Parameter(Component *parent, const char *name, const char *id, bool value) :
+Component(parent, name, id, ComponentType::parameter)
+{
+    ParameterWrite *s = ParameterWrite::GetInstance();
+    int* ptr_to_obj = (int*)this;
+    s->AddParamToArray(ptr_to_obj, param_type::BOOL);
+    _value = value; 
+}
+template <class T>
+void Parameter<T>::SetValue(T value) {
+    _value = value;
+}
+template <class T>
+T Parameter<T>::GetValue() {
+    return _value;
+}
 
 
 inline Component::Component(Component *parent, const char *name, const char *id, ComponentType component_type) : 
@@ -120,4 +219,102 @@ inline Component::Component(Component *parent, const char *name, const char *id,
 
         #endif
     }
-    #endif
+
+inline Component* Component::GetParent() 
+{
+    return _parent;
+}
+
+inline const char* Component::GetName() {
+    return _name;
+}
+
+inline const char* Component::GetID() {
+    return _id;
+}
+
+inline const char* Component::GetUniqueId() {
+    return _id_buffer;
+}
+
+inline const char* Component::GetUniqueName()  {
+    return _name_buffer;
+}
+
+inline auto Component::get_all_unique_ids_as_map()  {
+    return _unique_ids;
+}
+
+inline ParameterWrite::ParameterWrite() {
+   number_of_parameters = 0;
+   float_index          = 0;
+   int_index            = 0;
+   double_index         = 0;
+   bool_index           = 0;
+}
+
+inline ParameterWrite* ParameterWrite::GetInstance() {
+   if (!instance){
+      instance = new ParameterWrite;
+   }
+   return instance;
+}
+
+inline void ParameterWrite::AddParamToArray(int *param, param_type type) {
+   if (type == param_type::FLOAT)         float_params[float_index++] = param;
+   else if (type == param_type::DOUBLE)   double_params[double_index++] = param;
+   else if (type == param_type::INT)      int_params[int_index++] = param;      
+   else if (type == param_type::BOOL)     bool_params[bool_index++] = param;
+   number_of_parameters++;
+}
+
+inline int ParameterWrite::get_number_of_param() {
+   return number_of_parameters;
+}
+
+inline vector<string> ParameterWrite::get_param_ids() {
+   return param_ids;
+}
+
+
+inline int* ParameterWrite::get_float_param_ptr_by_id(string id_to_find) {
+   for (int i = 0; i < float_index; i++) {
+        Component *param_combo = (Component*)float_params[i];
+        if (param_combo->GetUniqueId() == id_to_find){
+            std::cout << "Name: " << param_combo->GetUniqueId() << std::endl;
+            return float_params[i];
+        }
+   }
+   return 0;
+}
+inline int* ParameterWrite::get_double_param_ptr_by_id(string id_to_find) {
+   for (int i = 0; i < double_index; i++) {
+        Component *param_combo = (Component*)double_params[i];
+        if (param_combo->GetUniqueId() == id_to_find){
+            std::cout << "Name: " << param_combo->GetUniqueId() << std::endl;
+            return double_params[i];
+        }
+   }
+   return 0;
+}
+inline int* ParameterWrite::get_int_param_ptr_by_id(string id_to_find) {
+   for (int i = 0; i < int_index; i++) {
+        Component *param_combo = (Component*)int_params[i];
+        if (param_combo->GetUniqueId() == id_to_find){
+            std::cout << "Name: " << param_combo->GetUniqueId() << std::endl;
+            return int_params[i];
+        }
+   }
+   return 0;
+}
+inline int* ParameterWrite::get_bool_param_ptr_by_id(string id_to_find) {
+    for (int i = 0; i < bool_index; i++) {
+        Component *param_combo = (Component*)bool_params[i];
+        if (param_combo->GetUniqueId() == id_to_find){
+            std::cout << "Name: " << param_combo->GetUniqueId() << std::endl;
+            return bool_params[i];
+        }
+   }
+   return 0;
+}
+#endif

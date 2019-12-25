@@ -8,6 +8,7 @@ Component(this, name, id)
 ,_param2(this, "Param2", "06", 10.0f)
 ,_param3(this, "Param3", "07", 10.5)
 ,_param4(this, "Param4", "09", 10)
+,_param5(this, "Param5", "10", false)
 {
 }
 

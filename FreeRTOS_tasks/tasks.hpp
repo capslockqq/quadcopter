@@ -31,7 +31,6 @@ Tasks();
     void SetUp_Tasks(Tasks &task);
     #ifdef PC
     static float m_simulation_time_seconds;
-    static std::string m_path_to_test_folder;
     #endif
 private:
     void ControlSenderTask(void *param);
@@ -41,6 +40,7 @@ private:
     static void UpdateParameters();
     #ifdef PC
     static void UpdateOutputLog();
+    static int ticks;
     #endif
     Application_code application;
 };

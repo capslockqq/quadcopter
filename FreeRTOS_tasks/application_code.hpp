@@ -42,6 +42,7 @@ public:
     Parameter<float> _param2;
     Parameter<double> _param3;
     Parameter<int> _param4;
+    Parameter<bool> _param5;
 private:
     
 };

@@ -20,4 +20,6 @@ public:
     Input<float>    ip_setpoint;
     Output<bool>    op_test;
     Output<bool>    op_test2;
+    Output<double>     op_output;
+    Parameter<double>  param_test;
 };

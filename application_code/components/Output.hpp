@@ -1,4 +1,3 @@
-    
 #pragma once
 #include "Input.hpp"
 #include "Component.hpp"
@@ -37,6 +36,47 @@ private:
 	bool first_time = true;
 };
 
+template <class T>
+class Input : public Component
+{
+public:
+	Input(Component *parent, const char *name, const char *id);
+	~Input();
+	ComponentType type() { return ComponentType::input;}
+	T GetValue();
+	T* GetValueAddress();
+	void SetValue(T value);
+	void operator=(Output<T> output) {
+		_value = output.GetValueAddress();
+	}    
+private:
+	T* _value = new T();
+};
+template <class T>
+inline Input<T>::Input(Component *parent, const char *name, const char *id) :
+Component(parent, name, id, input)
+{
+}
+
+template <class T>
+inline Input<T>::~Input()
+{
+}
+template <class T>
+inline T Input<T>::GetValue() {
+	return *_value;
+}
+
+template <class T>
+T* Input<T>::GetValueAddress() {
+	return _value;
+}
+
+template <class T>
+void Input<T>::SetValue(T value) {
+	*_value = value;
+}
+
 template <typename T> int Output<T>::number_of_outputs(0);
 
 template <class T>
@@ -52,13 +92,13 @@ Component(parent, name, id, output)
     auto v = S->GetData();
 	if (v.size() > 1) {
 		for(auto t=v.begin(); t!=v.end(); ++t) {
-			if (*t == this->str_id) {
+			if (*t == std::string(this->GetUniqueId())) {
 				logging = true;
 			}
 		}
 	}
 	else if (v.size() > 0) {
-		if (v.at(0) == this->str_id) {
+		if (v.at(0) == std::string(this->GetUniqueId())) {
 			logging = true;
 		}
 	}
@@ -67,7 +107,7 @@ Component(parent, name, id, output)
 		OutputObserver *L = OutputObserver::GetInstance();
 		int* ptr_to_obj = (int*)this;
 		L->Add_Output(ptr_to_obj, type_name<decltype(GetValue())>());
-		_fileName = this->str_id;
+		_fileName = std::string(this->GetUniqueId());
 		//std::reverse(_fileName.begin(), _fileName.end());
 		_fileName += ".txt";
 
