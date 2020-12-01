@@ -2,3 +2,4 @@ build_target
 build_pc
 build_unittest
 simulation_tests/*/tmp/
+.vscode
