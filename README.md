@@ -25,6 +25,7 @@ The idea behind this structure, is that all the functional code i.e code that is
 * ``` cd quadcopter ```
 * ```sudo chmod +x setup.sh```
 * ```./setup.sh``` This will create build folders, and build the project (pc code, unittests and target code)
+* If above command fails, try run ```sed -i 's/\r$//' setup.sh```
 
 ### Flashing the arduino uno
 There has been created a flashing script which will program your arduino with the C++ code. The code that will be flashed is the code found in the folder ```avr_code```. To flash the code you should do the following:
