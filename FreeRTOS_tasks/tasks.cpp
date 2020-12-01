@@ -36,11 +36,9 @@ void Tasks::ControlTask(void *param) {
          tmp->SetValue(false);
     }
     task->UpdateOutputs();
-    task->UpdateParameters();
     #ifdef PC
+    task->UpdateParameters();
     task->UpdateOutputLog();
-    #endif
-    #ifdef PC 
     
     ticks++;
      if (ticks >= SAMPLE_FREQUENCY*m_simulation_time_seconds) {
@@ -65,8 +63,9 @@ void Tasks::IMUReceiverTask(void *param) {
 void Tasks::UpdateOutputs() {
 
 }
-
+#ifdef PC
 void Tasks::UpdateParameters() {
+  
   ParameterWrite *paramwrite = ParameterWrite::GetInstance();
   auto all_ids = Component::get_all_unique_ids_as_map();
   for (auto param : paramwrite->simlation_param_write) {
@@ -97,7 +96,6 @@ void Tasks::UpdateParameters() {
   }
 }
 
-#ifdef PC
 void Tasks::UpdateOutputLog() {
   OutputObserver *L = OutputObserver::GetInstance();
   auto list = L->GetUpdate();

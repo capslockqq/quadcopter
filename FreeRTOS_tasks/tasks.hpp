@@ -37,8 +37,8 @@ private:
     static void ControlTask(void *param);
     static void IMUReceiverTask(void *param);
     static void UpdateOutputs();
-    static void UpdateParameters();
     #ifdef PC
+    static void UpdateParameters();
     static void UpdateOutputLog();
     static int ticks;
     #endif

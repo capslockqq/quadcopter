@@ -1,14 +1,15 @@
 #pragma once
 #ifndef _COMPONENT_
 #define _COMPONENT_
+#include <stdio.h>
 #include <string.h>
+
 #ifdef PC
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <stdio.h>
 #include <fstream>
 #include <tuple>
 using namespace std;
@@ -240,11 +241,11 @@ inline const char* Component::GetUniqueId() {
 inline const char* Component::GetUniqueName()  {
     return _name_buffer;
 }
-
+#ifdef PC
 inline auto Component::get_all_unique_ids_as_map()  {
     return _unique_ids;
 }
-
+#endif
 inline ParameterWrite::ParameterWrite() {
    number_of_parameters = 0;
    float_index          = 0;
@@ -272,10 +273,10 @@ inline int ParameterWrite::get_number_of_param() {
    return number_of_parameters;
 }
 
+#ifdef PC
 inline vector<string> ParameterWrite::get_param_ids() {
    return param_ids;
 }
-
 
 inline int* ParameterWrite::get_float_param_ptr_by_id(string id_to_find) {
    for (int i = 0; i < float_index; i++) {
@@ -317,4 +318,5 @@ inline int* ParameterWrite::get_bool_param_ptr_by_id(string id_to_find) {
    }
    return 0;
 }
+#endif
 #endif
